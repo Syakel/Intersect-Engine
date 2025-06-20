@@ -1,4 +1,4 @@
-﻿namespace Intersect.Config;
+namespace Intersect.Config;
 
 /// <summary>
 /// Contains configurable options pertaining to the way Players are handled by the engine.
@@ -8,7 +8,7 @@ public partial class PlayerOptions
     /// <summary>
     /// Default value for initial amount of player's bank slots.
     /// </summary>
-    private const int DefaultInitialBankSlots = 100;
+    private const int DefaultInitialBankSlots = 500;
 
     public const int DefaultHotbarSlotCount = 10;
 
@@ -45,7 +45,7 @@ public partial class PlayerOptions
     /// <summary>
     /// A percentage between 0 and 100 which determines the experience that players will lose when they die.
     /// </summary>
-    public int ExpLossOnDeathPercent { get; set; } = 0;
+    public int ExpLossOnDeathPercent { get; set; } = 1;
 
     /// <summary>
     /// Number of hotbar slots a player has.
@@ -60,12 +60,12 @@ public partial class PlayerOptions
     /// <summary>
     /// A percentage between 0 and 100 which determines the chance in which they will lose any given item in their inventory when killed.
     /// </summary>
-    public int ItemDropChance { get; set; } = 0;
+    public int ItemDropChance { get; set; } = 60;
 
     /// <summary>
     /// Number of characters an account may create.
     /// </summary>
-    public int MaxCharacters { get; set; } = 1;
+    public int MaxCharacters { get; set; } = 3;
 
     /// <summary>
     /// Number of inventory slots a player has.
@@ -85,7 +85,7 @@ public partial class PlayerOptions
     /// <summary>
     /// The highest value a single stat can be for a player.
     /// </summary>
-    public int MaxStat { get; set; } = 255;
+    public int MaxStat { get; set; } = 5000;
 
     /// <summary>
     /// How long a player must wait before sending a trade/party/friend.
@@ -95,7 +95,7 @@ public partial class PlayerOptions
     /// <summary>
     /// If the level of a player is shown next to their name.
     /// </summary>
-    public bool ShowLevelByName { get; set; } = false;
+    public bool ShowLevelByName { get; set; } = true;
 
     /// <summary>
     /// If the game client skips the character select window upon login or going back

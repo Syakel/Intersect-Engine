@@ -9,7 +9,7 @@ public partial class InstancingOptions
     /// <summary>
     ///  Intersect default for instance lives
     /// </summary>
-    public const int DefaultInstanceLives = 3;
+    public const int DefaultInstanceLives = 30;
 
     /// <summary>
     /// Whether dying in a shared instance "respawns" you at the instance entrance. Useful for dungeon implementations
@@ -19,7 +19,7 @@ public partial class InstancingOptions
     /// <summary>
     /// Whether a player that leaves a shared instance can come back in to that instance after leaving.
     /// </summary>
-    public bool RejoinableSharedInstances { get; set; } = false;
+    public bool RejoinableSharedInstances { get; set; } = true;
 
     /// <summary>
     /// How many lives a party has in a shared instance, if enabled
@@ -29,16 +29,16 @@ public partial class InstancingOptions
     /// <summary>
     /// Whether all party members get booted out of an instance on lives reaching -1
     /// </summary>
-    public bool BootAllFromInstanceWhenOutOfLives { get; set; } = true;
+    public bool BootAllFromInstanceWhenOutOfLives { get; set; } = false;
 
     /// <summary>
     /// Whether you lose experience on death in a shared instance
     /// </summary>
-    public bool LoseExpOnInstanceDeath { get; set; } = false;
+    public bool LoseExpOnInstanceDeath { get; set; } = true;
 
     public bool BlockPartyInvitesInInstance { get; set; } = false;
 
-    public bool KickPartyMembersOnKick { get; set; } = true;
+    public bool KickPartyMembersOnKick { get; set; } = false;
 
     [OnDeserialized]
     internal void OnDeserializedMethod(StreamingContext context)

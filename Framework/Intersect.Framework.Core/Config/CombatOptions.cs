@@ -1,16 +1,16 @@
-﻿namespace Intersect.Config;
+namespace Intersect.Config;
 
 public partial class CombatOptions
 {
-    public int BlockingSlow { get; set; } = 30; //Slow when moving with a shield. Default 30%
+    public int BlockingSlow { get; set; } = 0; //Slow when moving with a shield. Default 30%
 
     public int CombatTime { get; set; } = 10000; //10 seconds
 
-    public int MaxAttackRate { get; set; } = 200; //5 attacks per second
+    public int MaxAttackRate { get; set; } = 100; //200 = 5 attacks per second
 
     public int MaxDashSpeed { get; set; } = 200;
 
-    public int MinAttackRate { get; set; } = 500; //2 attacks per second
+    public int MinAttackRate { get; set; } = 1000; //500 = 2 attacks per second
 
     //Combat
     public int RegenTime { get; set; } = 3000; //3 seconds
@@ -41,7 +41,7 @@ public partial class CombatOptions
     /// Only used when <seealso cref="MatchGroupCooldowns"/> is enabled!
     /// Configures whether cooldown groups between items and spells are shared.
     /// </summary>
-    public bool LinkSpellAndItemCooldowns { get; set; } = true;
+    public bool LinkSpellAndItemCooldowns { get; set; } = false;
 
     /// <summary>
     /// Configures whether or not using a spell or item should trigger a global cooldown.
@@ -62,12 +62,12 @@ public partial class CombatOptions
     /// <summary>
     /// If enabled this allows regenerate vitals in combat
     /// </summary>
-    public bool RegenVitalsInCombat { get; set; } = false;
+    public bool RegenVitalsInCombat { get; set; } = true;
 
     /// <summary>
     /// If enabled, this allows entities to turn around while casting
     /// </summary>
-    public bool EnableTurnAroundWhileCasting { get; set; } = false;
+    public bool EnableTurnAroundWhileCasting { get; set; } = true;
 
     /// <summary>
     /// If enabled, the target window will be shown to players whenever they target an entity
@@ -77,10 +77,10 @@ public partial class CombatOptions
     /// <summary>
     /// If enabled, this makes it so a player casting a friendly spell on a hostile target instead casts the spell upon themselves
     /// </summary>
-    public bool EnableAutoSelfCastFriendlySpellsWhenTargetingHostile { get; set; } = false;
+    public bool EnableAutoSelfCastFriendlySpellsWhenTargetingHostile { get; set; } = true;
 
     /// <summary>
     /// If enabled, this allows players to cast friendly spells on players who aren't in their guild or party
     /// </summary>
-    public bool EnableAllPlayersFriendlyInSafeZone { get; set; } = false;
+    public bool EnableAllPlayersFriendlyInSafeZone { get; set; } = true;
 }

@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 
 namespace Intersect.Config;
 
@@ -48,7 +48,7 @@ public partial class NpcOptions
     /// <summary>
     /// If the level of an NPC is shown next to their name.
     /// </summary>
-    public bool ShowLevelByName { get; set; } = false;
+    public bool ShowLevelByName { get; set; } = true;
 
     /// <summary>
     /// If true, NPCs that are resetting will walk through players
