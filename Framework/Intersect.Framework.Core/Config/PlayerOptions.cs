@@ -75,7 +75,7 @@ public partial class PlayerOptions
     /// <summary>
     /// Max level a player can achieve.
     /// </summary>
-    public int MaxLevel { get; set; } = 100;
+    public int MaxLevel { get; set; } = 250;
 
     /// <summary>
     /// Number of spell slots a player has.
