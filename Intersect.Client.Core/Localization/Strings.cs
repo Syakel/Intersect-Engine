@@ -637,7 +637,7 @@ public static partial class Strings
         public static LocalizedString Equipment = @"Equipment:";
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public static LocalizedString ExtraBuffs = @"Extra Buffs";
+        public static LocalizedString ExtraBuffs = @"Stats";
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public static LocalizedString ExtraExp = @"Bonus EXP: {00}%";
@@ -667,7 +667,7 @@ public static partial class Strings
         public static LocalizedString StatLabelValue = @"{00}: {01}";
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public static LocalizedString Stats = @"Stats:";
+        public static LocalizedString Stats = @"Attributes:";
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public static LocalizedString Tenacity = @"Tenacity: {00}%";
@@ -810,11 +810,11 @@ public static partial class Strings
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public static Dictionary<Stat, LocalizedString> Stats = new() {
-            { Stat.Attack, @"Attack" },
-            { Stat.AbilityPower, @"Ability Power" },
+            { Stat.Attack, @"Strength" },
+            { Stat.AbilityPower, @"Intelligence" },
             { Stat.Defense, @"Defense" },
-            { Stat.MagicResist, @"Magic Resist" },
-            { Stat.Speed, @"Speed" },
+            { Stat.MagicResist, @"Faith" },
+            { Stat.Speed, @"Agility" },
         };
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
