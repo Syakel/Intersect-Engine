@@ -231,11 +231,11 @@ public partial class FrmItem : EditorForm
         grpEquipment.Text = Strings.ItemEditor.equipment;
         lblEquipmentSlot.Text = Strings.ItemEditor.slot;
         grpStatBonuses.Text = Strings.ItemEditor.bonuses;
-        lblStr.Text = Strings.ItemEditor.attackbonus;
+        lblStr.Text = Strings.ItemEditor.strengthbonus;
         lblDef.Text = Strings.ItemEditor.defensebonus;
-        lblSpd.Text = Strings.ItemEditor.speedbonus;
-        lblMag.Text = Strings.ItemEditor.abilitypowerbonus;
-        lblMR.Text = Strings.ItemEditor.magicresistbonus;
+        lblSpd.Text = Strings.ItemEditor.agilitybonus;
+        lblMag.Text = Strings.ItemEditor.intelligencebonus;
+        lblMR.Text = Strings.ItemEditor.faithbonus;
         lblEffectPercent.Text = Strings.ItemEditor.bonusamount;
         lblEquipmentAnimation.Text = Strings.ItemEditor.equipmentanimation;
 

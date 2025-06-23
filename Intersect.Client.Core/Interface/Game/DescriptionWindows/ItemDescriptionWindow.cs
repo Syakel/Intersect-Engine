@@ -318,7 +318,7 @@ public partial class ItemDescriptionWindow() : DescriptionWindowBase(Interface.G
             if (_itemDescriptor.AttackSpeedModifier == 0)
             {
                 // No modifier, assuming base attack rate? We have to calculate the speed stat manually here though..!
-                var speed = player.Stat[(int)Stat.Speed];
+                var speed = player.Stat[(int)Stat.Agility];
 
                 // Remove currently equipped weapon stats.. We want to create a fair display!
                 var weaponSlot = player.MyEquipment[Options.Instance.Equipment.WeaponSlot];
@@ -328,18 +328,18 @@ public partial class ItemDescriptionWindow() : DescriptionWindowBase(Interface.G
                     var weapon = ItemDescriptor.Get(player.Inventory[weaponSlot].ItemId);
                     if (weapon != null && randomStats != null)
                     {
-                        speed = (int)Math.Round(speed / ((100 + weapon.PercentageStatsGiven[(int)Stat.Speed]) / 100f));
-                        speed -= weapon.StatsGiven[(int)Stat.Speed];
-                        speed -= randomStats[(int)Stat.Speed];
+                        speed = (int)Math.Round(speed / ((100 + weapon.PercentageStatsGiven[(int)Stat.Agility]) / 100f));
+                        speed -= weapon.StatsGiven[(int)Stat.Agility];
+                        speed -= randomStats[(int)Stat.Agility];
                     }
                 }
 
                 // Add current item's speed stats!
                 if (_itemProperties?.StatModifiers != default)
                 {
-                    speed += _itemDescriptor.StatsGiven[(int)Stat.Speed];
-                    speed += _itemProperties.StatModifiers[(int)Stat.Speed];
-                    speed += (int)Math.Floor(speed * (_itemDescriptor.PercentageStatsGiven[(int)Stat.Speed] / 100f));
+                    speed += _itemDescriptor.StatsGiven[(int)Stat.Agility];
+                    speed += _itemProperties.StatModifiers[(int)Stat.Agility];
+                    speed += (int)Math.Floor(speed * (_itemDescriptor.PercentageStatsGiven[(int)Stat.Agility] / 100f));
                 }
 
                 // Display the actual speed this weapon would have based off of our calculated speed stat.

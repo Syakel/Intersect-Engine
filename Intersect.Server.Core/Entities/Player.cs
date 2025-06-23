@@ -1789,7 +1789,7 @@ public partial class Player : Entity
             }
             else
             {
-                base.TryAttack(target, 1, DamageType.Physical, Enums.Stat.Attack, 100, 10, 1.5);
+                base.TryAttack(target, 1, DamageType.Physical, Enums.Stat.Strength, 100, 10, 1.5);
             }
         }
     }

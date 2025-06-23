@@ -11,16 +11,16 @@ public partial class EquipmentProperties
     [JsonIgnore]
     public ItemRange StatRange_Attack
     {
-        get => StatRanges.TryGetValue(Stat.Attack, out var range) ? range : StatRange_Attack = new ItemRange();
-        set => StatRanges[Stat.Attack] = value;
+        get => StatRanges.TryGetValue(Stat.Strength, out var range) ? range : StatRange_Attack = new ItemRange();
+        set => StatRanges[Stat.Strength] = value;
     }
 
     [JsonIgnore]
-    public ItemRange StatRange_AbilityPower
+    public ItemRange StatRange_Intelligence
     {
         get =>
-            StatRanges.TryGetValue(Stat.AbilityPower, out var range) ? range : StatRange_AbilityPower = new ItemRange();
-        set => StatRanges[Stat.AbilityPower] = value;
+            StatRanges.TryGetValue(Stat.Intelligence, out var range) ? range : StatRange_Intelligence = new ItemRange();
+        set => StatRanges[Stat.Intelligence] = value;
     }
 
     [JsonIgnore]
@@ -34,14 +34,14 @@ public partial class EquipmentProperties
     public ItemRange StatRange_MagicResist
     {
         get =>
-            StatRanges.TryGetValue(Stat.MagicResist, out var range) ? range : StatRange_MagicResist = new ItemRange();
-        set => StatRanges[Stat.MagicResist] = value;
+            StatRanges.TryGetValue(Stat.Faith, out var range) ? range : StatRange_MagicResist = new ItemRange();
+        set => StatRanges[Stat.Faith] = value;
     }
 
     [JsonIgnore]
     public ItemRange StatRange_Speed
     {
-        get => StatRanges.TryGetValue(Stat.Speed, out var range) ? range : StatRange_Speed = new ItemRange();
-        set => StatRanges[Stat.Speed] = value;
+        get => StatRanges.TryGetValue(Stat.Agility, out var range) ? range : StatRange_Speed = new ItemRange();
+        set => StatRanges[Stat.Agility] = value;
     }
 }

@@ -65,7 +65,7 @@ public partial class PlayerOptions
     /// <summary>
     /// Number of characters an account may create.
     /// </summary>
-    public int MaxCharacters { get; set; } = 3;
+    public int MaxCharacters { get; set; } = 10;
 
     /// <summary>
     /// Number of inventory slots a player has.
@@ -75,7 +75,7 @@ public partial class PlayerOptions
     /// <summary>
     /// Max level a player can achieve.
     /// </summary>
-    public int MaxLevel { get; set; } = 250;
+    public int MaxLevel { get; set; } = 300;
 
     /// <summary>
     /// Number of spell slots a player has.

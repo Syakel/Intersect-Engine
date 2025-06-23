@@ -318,7 +318,7 @@ public partial class EventPageInstance : Entity
     public override int[] GetStatValues()
     {
         var stats = new int[Enum.GetValues<Stat>().Length];
-        stats[(int)Enums.Stat.Speed] = Speed;
+        stats[(int)Enums.Stat.Agility] = Speed;
         return stats;
     }
 

@@ -1,4 +1,4 @@
-﻿using Intersect.Server.Database;
+using Intersect.Server.Database;
 using Intersect.Server.Migrations.SqlOnlyDataMigrations;
 using Microsoft.EntityFrameworkCore.Migrations;
 
@@ -21,8 +21,8 @@ namespace Intersect.Server.Migrations.MySql.Game
                     DescriptorId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     StatRange_Attack_LowRange = table.Column<int>(type: "int", nullable: true),
                     StatRange_Attack_HighRange = table.Column<int>(type: "int", nullable: true),
-                    StatRange_AbilityPower_LowRange = table.Column<int>(type: "int", nullable: true),
-                    StatRange_AbilityPower_HighRange = table.Column<int>(type: "int", nullable: true),
+                    StatRange_Intelligence_LowRange = table.Column<int>(type: "int", nullable: true),
+                    StatRange_Intelligence_HighRange = table.Column<int>(type: "int", nullable: true),
                     StatRange_Defense_LowRange = table.Column<int>(type: "int", nullable: true),
                     StatRange_Defense_HighRange = table.Column<int>(type: "int", nullable: true),
                     StatRange_MagicResist_LowRange = table.Column<int>(type: "int", nullable: true),

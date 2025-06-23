@@ -810,11 +810,11 @@ public static partial class Strings
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public static Dictionary<Stat, LocalizedString> Stats = new() {
-            { Stat.Attack, @"Strength" },
-            { Stat.AbilityPower, @"Intelligence" },
+            { Stat.Strength, @"Strength" },
+            { Stat.Intelligence, @"Intelligence" },
             { Stat.Defense, @"Defense" },
-            { Stat.MagicResist, @"Faith" },
-            { Stat.Speed, @"Agility" },
+            { Stat.Faith, @"Faith" },
+            { Stat.Agility, @"Agility" },
         };
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]

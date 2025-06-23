@@ -2,13 +2,13 @@ namespace Intersect.Enums;
 
 public enum Stat
 {
-    Attack = 0,
+    Strength = 0,
 
-    AbilityPower,
+    Intelligence,
 
     Defense,
 
-    MagicResist,
+    Faith,
 
-    Speed,
+    Agility,
 }

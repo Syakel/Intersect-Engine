@@ -1039,7 +1039,7 @@ public abstract partial class Entity : IEntity
     //Returns the amount of time required to traverse 1 tile
     public virtual float GetMovementTime()
     {
-        var time = 1000f / (float)(1 + Math.Log(Stat[(int)Enums.Stat.Speed].Value()));
+        var time = 1000f / (float)(1 + Math.Log(Stat[(int)Enums.Stat.Agility].Value()));
         if (Dir > Direction.Right)
         {
             time *= MathHelper.UnitDiagonalLength;
@@ -1395,7 +1395,7 @@ public abstract partial class Entity : IEntity
     {
         return (int)(Options.Instance.Combat.MaxAttackRate +
                       (Options.Instance.Combat.MinAttackRate - Options.Instance.Combat.MaxAttackRate) *
-                      (((float)Options.Instance.Player.MaxStat - Stat[(int)Enums.Stat.Speed].Value()) /
+                      (((float)Options.Instance.Player.MaxStat - Stat[(int)Enums.Stat.Agility].Value()) /
                        Options.Instance.Player.MaxStat));
     }
 

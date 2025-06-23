@@ -196,16 +196,16 @@ public static partial class Globals
     {
         switch (statnum)
         {
-            case (int) Stat.Attack:
-                return "Attack";
-            case (int) Stat.AbilityPower:
-                return "Ability Power";
+            case (int) Stat.Strength:
+                return "Strength";
+            case (int) Stat.Intelligence:
+                return "Intelligence";
             case (int) Stat.Defense:
                 return "Defense";
-            case (int) Stat.MagicResist:
-                return "Magic Resist";
-            case (int) Stat.Speed:
-                return "Speed";
+            case (int) Stat.Faith:
+                return "Faith";
+            case (int) Stat.Agility:
+                return "Agility";
             default:
                 return "Invalid Stat";
         }

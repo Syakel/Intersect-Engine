@@ -149,11 +149,11 @@ public partial class FrmClass : EditorForm
         {
             pnlContainer.Show();
             txtName.Text = mEditorItem.Name;
-            nudAttack.Value = mEditorItem.BaseStat[(int) Stat.Attack];
-            nudMag.Value = mEditorItem.BaseStat[(int) Stat.AbilityPower];
+            nudAttack.Value = mEditorItem.BaseStat[(int) Stat.Strength];
+            nudMag.Value = mEditorItem.BaseStat[(int) Stat.Intelligence];
             nudDef.Value = mEditorItem.BaseStat[(int) Stat.Defense];
-            nudMR.Value = mEditorItem.BaseStat[(int) Stat.MagicResist];
-            nudSpd.Value = mEditorItem.BaseStat[(int) Stat.Speed];
+            nudMR.Value = mEditorItem.BaseStat[(int) Stat.Faith];
+            nudSpd.Value = mEditorItem.BaseStat[(int) Stat.Agility];
             nudBaseHP.Value = Math.Max(
                 Math.Min(mEditorItem.BaseVital[(int) Vital.Health], nudBaseHP.Maximum), nudBaseHP.Minimum
             );
@@ -305,7 +305,7 @@ public partial class FrmClass : EditorForm
             GameContentManager.GetOverridesFor(GameContentManager.TextureType.Entity, "attack").ToArray()
         );
         cmbScalingStat.Items.Clear();
-        for (var x = 0; x < ((int)Stat.Speed) + 1; x++)
+        for (var x = 0; x < ((int)Stat.Agility) + 1; x++)
         {
             cmbScalingStat.Items.Add(Globals.GetStatName(x));
         }
@@ -367,11 +367,11 @@ public partial class FrmClass : EditorForm
         grpBaseStats.Text = Strings.ClassEditor.basestats;
         lblHP.Text = Strings.ClassEditor.basehp;
         lblMana.Text = Strings.ClassEditor.basemp;
-        lblAttack.Text = Strings.ClassEditor.baseattack;
+        lblAttack.Text = Strings.ClassEditor.basestrength;
         lblDef.Text = Strings.ClassEditor.basearmor;
-        lblSpd.Text = Strings.ClassEditor.basespeed;
-        lblMag.Text = Strings.ClassEditor.baseabilitypower;
-        lblMR.Text = Strings.ClassEditor.basemagicresist;
+        lblSpd.Text = Strings.ClassEditor.baseagility;
+        lblMag.Text = Strings.ClassEditor.baseintelligence;
+        lblMR.Text = Strings.ClassEditor.basefaith;
         lblPoints.Text = Strings.ClassEditor.basepoints;
 
         grpSpells.Text = Strings.ClassEditor.learntspells;
@@ -424,7 +424,7 @@ public partial class FrmClass : EditorForm
             rdoStaticIncrease.Checked ? "" : Strings.ClassEditor.boostpercent.ToString()
         );
 
-        lblStrengthIncrease.Text = Strings.ClassEditor.attackboost.ToString(
+        lblStrengthIncrease.Text = Strings.ClassEditor.strengthboost.ToString(
             rdoStaticIncrease.Checked ? "" : Strings.ClassEditor.boostpercent.ToString()
         );
 
@@ -432,15 +432,15 @@ public partial class FrmClass : EditorForm
             rdoStaticIncrease.Checked ? "" : Strings.ClassEditor.boostpercent.ToString()
         );
 
-        lblSpeedIncrease.Text = Strings.ClassEditor.speedboost.ToString(
+        lblSpeedIncrease.Text = Strings.ClassEditor.agilityboost.ToString(
             rdoStaticIncrease.Checked ? "" : Strings.ClassEditor.boostpercent.ToString()
         );
 
-        lblMagicIncrease.Text = Strings.ClassEditor.abilitypowerboost.ToString(
+        lblMagicIncrease.Text = Strings.ClassEditor.intelligenceboost.ToString(
             rdoStaticIncrease.Checked ? "" : Strings.ClassEditor.boostpercent.ToString()
         );
 
-        lblMagicResistIncrease.Text = Strings.ClassEditor.magicresistboost.ToString(
+        lblMagicResistIncrease.Text = Strings.ClassEditor.faithboost.ToString(
             rdoStaticIncrease.Checked ? "" : Strings.ClassEditor.boostpercent.ToString()
         );
 
@@ -781,19 +781,19 @@ public partial class FrmClass : EditorForm
         nudMpIncrease.Value = Math.Min(nudMpIncrease.Maximum, mEditorItem.VitalIncrease[(int) Vital.Mana]);
 
         nudStrengthIncrease.Value = Math.Min(
-            nudStrengthIncrease.Maximum, mEditorItem.StatIncrease[(int) Stat.Attack]
+            nudStrengthIncrease.Maximum, mEditorItem.StatIncrease[(int) Stat.Strength]
         );
 
         nudArmorIncrease.Value = Math.Min(nudArmorIncrease.Maximum, mEditorItem.StatIncrease[(int) Stat.Defense]);
         nudMagicIncrease.Value = Math.Min(
-            nudMagicIncrease.Maximum, mEditorItem.StatIncrease[(int) Stat.AbilityPower]
+            nudMagicIncrease.Maximum, mEditorItem.StatIncrease[(int) Stat.Intelligence]
         );
 
         nudMagicResistIncrease.Value = Math.Min(
-            nudMagicResistIncrease.Maximum, mEditorItem.StatIncrease[(int) Stat.MagicResist]
+            nudMagicResistIncrease.Maximum, mEditorItem.StatIncrease[(int) Stat.Faith]
         );
 
-        nudSpeedIncrease.Value = Math.Min(nudSpeedIncrease.Maximum, mEditorItem.StatIncrease[(int) Stat.Speed]);
+        nudSpeedIncrease.Value = Math.Min(nudSpeedIncrease.Maximum, mEditorItem.StatIncrease[(int) Stat.Agility]);
 
         lblHpIncrease.Text = Strings.ClassEditor.hpboost.ToString(
             rdoStaticIncrease.Checked ? "" : Strings.ClassEditor.boostpercent.ToString()
@@ -803,7 +803,7 @@ public partial class FrmClass : EditorForm
             rdoStaticIncrease.Checked ? "" : Strings.ClassEditor.boostpercent.ToString()
         );
 
-        lblStrengthIncrease.Text = Strings.ClassEditor.attackboost.ToString(
+        lblStrengthIncrease.Text = Strings.ClassEditor.strengthboost.ToString(
             rdoStaticIncrease.Checked ? "" : Strings.ClassEditor.boostpercent.ToString()
         );
 
@@ -811,15 +811,15 @@ public partial class FrmClass : EditorForm
             rdoStaticIncrease.Checked ? "" : Strings.ClassEditor.boostpercent.ToString()
         );
 
-        lblSpeedIncrease.Text = Strings.ClassEditor.speedboost.ToString(
+        lblSpeedIncrease.Text = Strings.ClassEditor.agilityboost.ToString(
             rdoStaticIncrease.Checked ? "" : Strings.ClassEditor.boostpercent.ToString()
         );
 
-        lblMagicIncrease.Text = Strings.ClassEditor.abilitypowerboost.ToString(
+        lblMagicIncrease.Text = Strings.ClassEditor.intelligenceboost.ToString(
             rdoStaticIncrease.Checked ? "" : Strings.ClassEditor.boostpercent.ToString()
         );
 
-        lblMagicResistIncrease.Text = Strings.ClassEditor.magicresistboost.ToString(
+        lblMagicResistIncrease.Text = Strings.ClassEditor.faithboost.ToString(
             rdoStaticIncrease.Checked ? "" : Strings.ClassEditor.boostpercent.ToString()
         );
 
@@ -967,12 +967,12 @@ public partial class FrmClass : EditorForm
 
     private void nudStr_ValueChanged(object sender, EventArgs e)
     {
-        mEditorItem.BaseStat[(int) Stat.Attack] = (int) nudAttack.Value;
+        mEditorItem.BaseStat[(int) Stat.Strength] = (int) nudAttack.Value;
     }
 
     private void nudMag_ValueChanged(object sender, EventArgs e)
     {
-        mEditorItem.BaseStat[(int) Stat.AbilityPower] = (int) nudMag.Value;
+        mEditorItem.BaseStat[(int) Stat.Intelligence] = (int) nudMag.Value;
     }
 
     private void nudDef_ValueChanged(object sender, EventArgs e)
@@ -982,7 +982,7 @@ public partial class FrmClass : EditorForm
 
     private void nudMR_ValueChanged(object sender, EventArgs e)
     {
-        mEditorItem.BaseStat[(int) Stat.MagicResist] = (int) nudMR.Value;
+        mEditorItem.BaseStat[(int) Stat.Faith] = (int) nudMR.Value;
     }
 
     private void nudPoints_ValueChanged(object sender, EventArgs e)
@@ -992,7 +992,7 @@ public partial class FrmClass : EditorForm
 
     private void nudSpd_ValueChanged(object sender, EventArgs e)
     {
-        mEditorItem.BaseStat[(int) Stat.Speed] = (int) nudSpd.Value;
+        mEditorItem.BaseStat[(int) Stat.Agility] = (int) nudSpd.Value;
     }
 
     private void nudLevel_ValueChanged(object sender, EventArgs e)
@@ -1050,25 +1050,25 @@ public partial class FrmClass : EditorForm
 
     private void nudMagicResistIncrease_ValueChanged(object sender, EventArgs e)
     {
-        mEditorItem.StatIncrease[(int) Stat.MagicResist] = (int) nudMagicResistIncrease.Value;
+        mEditorItem.StatIncrease[(int) Stat.Faith] = (int) nudMagicResistIncrease.Value;
         UpdateIncreases();
     }
 
     private void nudStrengthIncrease_ValueChanged(object sender, EventArgs e)
     {
-        mEditorItem.StatIncrease[(int) Stat.Attack] = (int) nudStrengthIncrease.Value;
+        mEditorItem.StatIncrease[(int) Stat.Strength] = (int) nudStrengthIncrease.Value;
         UpdateIncreases();
     }
 
     private void nudMagicIncrease_ValueChanged(object sender, EventArgs e)
     {
-        mEditorItem.StatIncrease[(int) Stat.AbilityPower] = (int) nudMagicIncrease.Value;
+        mEditorItem.StatIncrease[(int) Stat.Intelligence] = (int) nudMagicIncrease.Value;
         UpdateIncreases();
     }
 
     private void nudSpeedIncrease_ValueChanged(object sender, EventArgs e)
     {
-        mEditorItem.StatIncrease[(int) Stat.Speed] = (int) nudSpeedIncrease.Value;
+        mEditorItem.StatIncrease[(int) Stat.Agility] = (int) nudSpeedIncrease.Value;
         UpdateIncreases();
     }
 

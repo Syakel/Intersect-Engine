@@ -21,20 +21,20 @@ public partial class CharacterWindow
     //Equipment List
     public List<EquipmentItem> Items = new List<EquipmentItem>();
 
-    Label mAbilityPwrLabel;
+    Label mIntelligenceLabel;
 
-    Button mAddAbilityPwrBtn;
+    Button mAddIntelligenceBtn;
 
-    Button mAddAttackBtn;
+    Button mAddStrengthBtn;
 
     Button mAddDefenseBtn;
 
-    Button mAddMagicResistBtn;
+    Button mAddFaithBtn;
 
-    Button mAddSpeedBtn;
+    Button mAddAgilityBtn;
 
     //Stats
-    Label mAttackLabel;
+    Label mStrengthLabel;
 
     private ImagePanel mCharacterContainer;
 
@@ -55,11 +55,11 @@ public partial class CharacterWindow
 
     private ItemProperties mItemProperties = null;
 
-    Label mMagicRstLabel;
+    Label mFaithLabel;
 
     Label mPointsLabel;
 
-    Label mSpeedLabel;
+    Label mAgilityLabel;
 
     public ImagePanel[] PaperdollPanels;
 
@@ -138,26 +138,26 @@ public partial class CharacterWindow
         var statsLabel = new Label(mCharacterWindow, "StatsLabel");
         statsLabel.SetText(Strings.Character.Stats);
 
-        mAttackLabel = new Label(mCharacterWindow, "AttackLabel");
+        mStrengthLabel = new Label(mCharacterWindow, "StrengthLabel");
 
-        mAddAttackBtn = new Button(mCharacterWindow, "IncreaseAttackButton");
-        mAddAttackBtn.Clicked += _addAttackBtn_Clicked;
+        mAddStrengthBtn = new Button(mCharacterWindow, "IncreaseStrengthButton");
+        mAddStrengthBtn.Clicked += _addStrengthBtn_Clicked;
 
         mDefenseLabel = new Label(mCharacterWindow, "DefenseLabel");
         mAddDefenseBtn = new Button(mCharacterWindow, "IncreaseDefenseButton");
         mAddDefenseBtn.Clicked += _addDefenseBtn_Clicked;
 
-        mSpeedLabel = new Label(mCharacterWindow, "SpeedLabel");
-        mAddSpeedBtn = new Button(mCharacterWindow, "IncreaseSpeedButton");
-        mAddSpeedBtn.Clicked += _addSpeedBtn_Clicked;
+        mAgilityLabel = new Label(mCharacterWindow, "AgilityLabel");
+        mAddAgilityBtn = new Button(mCharacterWindow, "IncreaseAgilityButton");
+        mAddAgilityBtn.Clicked += _addAgilityBtn_Clicked;
 
-        mAbilityPwrLabel = new Label(mCharacterWindow, "AbilityPowerLabel");
-        mAddAbilityPwrBtn = new Button(mCharacterWindow, "IncreaseAbilityPowerButton");
-        mAddAbilityPwrBtn.Clicked += _addAbilityPwrBtn_Clicked;
+        mIntelligenceLabel = new Label(mCharacterWindow, "IntelligenceLabel");
+        mAddIntelligenceBtn = new Button(mCharacterWindow, "IncreaseIntelligenceButton");
+        mAddIntelligenceBtn.Clicked += _addIntelligenceBtn_Clicked;
 
-        mMagicRstLabel = new Label(mCharacterWindow, "MagicResistLabel");
-        mAddMagicResistBtn = new Button(mCharacterWindow, "IncreaseMagicResistButton");
-        mAddMagicResistBtn.Clicked += _addMagicResistBtn_Clicked;
+        mFaithLabel = new Label(mCharacterWindow, "FaithLabel");
+        mAddFaithBtn = new Button(mCharacterWindow, "IncreaseFaithButton");
+        mAddFaithBtn.Clicked += _addFaithBtn_Clicked;
 
         mPointsLabel = new Label(mCharacterWindow, "PointsLabel");
 
@@ -185,19 +185,19 @@ public partial class CharacterWindow
     }
 
     //Update Button Event Handlers
-    void _addMagicResistBtn_Clicked(Base sender, MouseButtonState arguments)
+    void _addFaithBtn_Clicked(Base sender, MouseButtonState arguments)
     {
-        PacketSender.SendUpgradeStat((int) Stat.MagicResist);
+        PacketSender.SendUpgradeStat((int) Stat.Faith);
     }
 
-    void _addAbilityPwrBtn_Clicked(Base sender, MouseButtonState arguments)
+    void _addIntelligenceBtn_Clicked(Base sender, MouseButtonState arguments)
     {
-        PacketSender.SendUpgradeStat((int) Stat.AbilityPower);
+        PacketSender.SendUpgradeStat((int) Stat.Intelligence);
     }
 
-    void _addSpeedBtn_Clicked(Base sender, MouseButtonState arguments)
+    void _addAgilityBtn_Clicked(Base sender, MouseButtonState arguments)
     {
-        PacketSender.SendUpgradeStat((int) Stat.Speed);
+        PacketSender.SendUpgradeStat((int) Stat.Agility);
     }
 
     void _addDefenseBtn_Clicked(Base sender, MouseButtonState arguments)
@@ -205,9 +205,9 @@ public partial class CharacterWindow
         PacketSender.SendUpgradeStat((int) Stat.Defense);
     }
 
-    void _addAttackBtn_Clicked(Base sender, MouseButtonState arguments)
+    void _addStrengthBtn_Clicked(Base sender, MouseButtonState arguments)
     {
-        PacketSender.SendUpgradeStat((int) Stat.Attack);
+        PacketSender.SendUpgradeStat((int) Stat.Strength);
     }
 
     //Methods
@@ -324,17 +324,17 @@ public partial class CharacterWindow
             }
         }
 
-        mAttackLabel.SetText(
+        mStrengthLabel.SetText(
             Strings.Character.StatLabelValue.ToString(
-                Strings.Combat.Stats[Stat.Attack],
-                Globals.Me.Stat[(int)Stat.Attack]
+                Strings.Combat.Stats[Stat.Strength],
+                Globals.Me.Stat[(int)Stat.Strength]
             )
         );
 
-        mAbilityPwrLabel.SetText(
+        mIntelligenceLabel.SetText(
             Strings.Character.StatLabelValue.ToString(
-                Strings.Combat.Stats[Stat.AbilityPower],
-                Globals.Me.Stat[(int)Stat.AbilityPower]
+                Strings.Combat.Stats[Stat.Intelligence],
+                Globals.Me.Stat[(int)Stat.Intelligence]
             )
         );
 
@@ -345,35 +345,35 @@ public partial class CharacterWindow
             )
         );
 
-        mMagicRstLabel.SetText(
+        mFaithLabel.SetText(
             Strings.Character.StatLabelValue.ToString(
-                Strings.Combat.Stats[Stat.MagicResist],
-                Globals.Me.Stat[(int)Stat.MagicResist]
+                Strings.Combat.Stats[Stat.Faith],
+                Globals.Me.Stat[(int)Stat.Faith]
             )
         );
 
-        mSpeedLabel.SetText(
+        mAgilityLabel.SetText(
             Strings.Character.StatLabelValue.ToString(
-                Strings.Combat.Stats[Stat.Speed],
-                Globals.Me.Stat[(int)Stat.Speed]
+                Strings.Combat.Stats[Stat.Agility],
+                Globals.Me.Stat[(int)Stat.Agility]
             )
         );
 
         mPointsLabel.SetText(Strings.Character.Points.ToString(Globals.Me.StatPoints));
-        mAddAbilityPwrBtn.IsHidden = Globals.Me.StatPoints == 0 ||
-                                     Globals.Me.Stat[(int) Stat.AbilityPower] == Options.Instance.Player.MaxStat;
+        mAddIntelligenceBtn.IsHidden = Globals.Me.StatPoints == 0 ||
+                                     Globals.Me.Stat[(int) Stat.Intelligence] == Options.Instance.Player.MaxStat;
 
-        mAddAttackBtn.IsHidden =
-            Globals.Me.StatPoints == 0 || Globals.Me.Stat[(int) Stat.Attack] == Options.Instance.Player.MaxStat;
+        mAddStrengthBtn.IsHidden =
+            Globals.Me.StatPoints == 0 || Globals.Me.Stat[(int) Stat.Strength] == Options.Instance.Player.MaxStat;
 
         mAddDefenseBtn.IsHidden = Globals.Me.StatPoints == 0 ||
                                   Globals.Me.Stat[(int) Stat.Defense] == Options.Instance.Player.MaxStat;
 
-        mAddMagicResistBtn.IsHidden = Globals.Me.StatPoints == 0 ||
-                                      Globals.Me.Stat[(int) Stat.MagicResist] == Options.Instance.Player.MaxStat;
+        mAddFaithBtn.IsHidden = Globals.Me.StatPoints == 0 ||
+                                      Globals.Me.Stat[(int) Stat.Faith] == Options.Instance.Player.MaxStat;
 
-        mAddSpeedBtn.IsHidden =
-            Globals.Me.StatPoints == 0 || Globals.Me.Stat[(int) Stat.Speed] == Options.Instance.Player.MaxStat;
+        mAddAgilityBtn.IsHidden =
+            Globals.Me.StatPoints == 0 || Globals.Me.Stat[(int) Stat.Agility] == Options.Instance.Player.MaxStat;
 
         UpdateExtraBuffs();
 

@@ -181,11 +181,11 @@ public partial class FrmNpc : EditorForm
         grpStats.Text = Strings.NpcEditor.stats;
         lblHP.Text = Strings.NpcEditor.hp;
         lblMana.Text = Strings.NpcEditor.mana;
-        lblStr.Text = Strings.NpcEditor.attack;
+        lblStr.Text = Strings.NpcEditor.strength;
         lblDef.Text = Strings.NpcEditor.defense;
-        lblSpd.Text = Strings.NpcEditor.speed;
-        lblMag.Text = Strings.NpcEditor.abilitypower;
-        lblMR.Text = Strings.NpcEditor.magicresist;
+        lblSpd.Text = Strings.NpcEditor.agility;
+        lblMag.Text = Strings.NpcEditor.intelligence;
+        lblMR.Text = Strings.NpcEditor.faith;
         lblExp.Text = Strings.NpcEditor.exp;
 
         grpRegen.Text = Strings.NpcEditor.regen;
@@ -303,11 +303,11 @@ public partial class FrmNpc : EditorForm
             cmbOnDeathEventKiller.SelectedIndex = EventDescriptor.ListIndex(mEditorItem.OnDeathEventId) + 1;
             cmbOnDeathEventParty.SelectedIndex = EventDescriptor.ListIndex(mEditorItem.OnDeathPartyEventId) + 1;
 
-            nudStr.Value = mEditorItem.Stats[(int)Stat.Attack];
-            nudMag.Value = mEditorItem.Stats[(int)Stat.AbilityPower];
+            nudStr.Value = mEditorItem.Stats[(int)Stat.Strength];
+            nudMag.Value = mEditorItem.Stats[(int)Stat.Intelligence];
             nudDef.Value = mEditorItem.Stats[(int)Stat.Defense];
-            nudMR.Value = mEditorItem.Stats[(int)Stat.MagicResist];
-            nudSpd.Value = mEditorItem.Stats[(int)Stat.Speed];
+            nudMR.Value = mEditorItem.Stats[(int)Stat.Faith];
+            nudSpd.Value = mEditorItem.Stats[(int)Stat.Agility];
             nudHp.Value = mEditorItem.MaxVitals[(int)Vital.Health];
             nudMana.Value = mEditorItem.MaxVitals[(int)Vital.Mana];
             nudExp.Value = mEditorItem.Experience;
@@ -668,12 +668,12 @@ public partial class FrmNpc : EditorForm
 
     private void nudStr_ValueChanged(object sender, EventArgs e)
     {
-        mEditorItem.Stats[(int)Stat.Attack] = (int)nudStr.Value;
+        mEditorItem.Stats[(int)Stat.Strength] = (int)nudStr.Value;
     }
 
     private void nudMag_ValueChanged(object sender, EventArgs e)
     {
-        mEditorItem.Stats[(int)Stat.AbilityPower] = (int)nudMag.Value;
+        mEditorItem.Stats[(int)Stat.Intelligence] = (int)nudMag.Value;
     }
 
     private void nudDef_ValueChanged(object sender, EventArgs e)
@@ -683,12 +683,12 @@ public partial class FrmNpc : EditorForm
 
     private void nudMR_ValueChanged(object sender, EventArgs e)
     {
-        mEditorItem.Stats[(int)Stat.MagicResist] = (int)nudMR.Value;
+        mEditorItem.Stats[(int)Stat.Faith] = (int)nudMR.Value;
     }
 
     private void nudSpd_ValueChanged(object sender, EventArgs e)
     {
-        mEditorItem.Stats[(int)Stat.Speed] = (int)nudSpd.Value;
+        mEditorItem.Stats[(int)Stat.Agility] = (int)nudSpd.Value;
     }
 
     private void nudDamage_ValueChanged(object sender, EventArgs e)
