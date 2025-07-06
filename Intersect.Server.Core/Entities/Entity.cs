@@ -1039,7 +1039,8 @@ public abstract partial class Entity : IEntity
     //Returns the amount of time required to traverse 1 tile
     public virtual float GetMovementTime()
     {
-        var time = 1000f / (float)(1 + Math.Log(Stat[(int)Enums.Stat.Agility].Value()));
+        //var time = 1000f / (float)(1 + Math.Log(Stat[(int)Enums.Stat.Agility].Value()));
+        var time = 1000f / (float)(1 + Math.Log(20));
         if (Dir > Direction.Right)
         {
             time *= MathHelper.UnitDiagonalLength;
