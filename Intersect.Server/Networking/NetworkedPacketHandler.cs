@@ -11,6 +11,7 @@ using Intersect.Framework.Core.GameObjects.Maps.MapList;
 using Intersect.Framework.Core.GameObjects.NPCs;
 using Intersect.Framework.Core.GameObjects.PlayerClass;
 using Intersect.Framework.Core.GameObjects.Resources;
+using Intersect.Framework.Core.GameObjects.Skills;
 using Intersect.Framework.Core.GameObjects.Variables;
 using Intersect.Framework.Core.Security;
 using Intersect.GameObjects;
@@ -976,7 +977,12 @@ internal sealed partial class NetworkedPacketHandler
 
                     break;
 
-                default:
+            case GameObjectType.Skill:
+                    obj = SkillDescriptor.Get(id);
+
+                    break;
+
+            default:
                     throw new ArgumentOutOfRangeException();
             }
 
@@ -1108,7 +1114,12 @@ internal sealed partial class NetworkedPacketHandler
 
                     break;
 
-                default:
+                case GameObjectType.Skill:
+                    obj = SkillDescriptor.Get(id);
+
+                    break;
+
+            default:
                     throw new ArgumentOutOfRangeException();
             }
 

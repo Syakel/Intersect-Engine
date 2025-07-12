@@ -471,6 +471,9 @@ public static partial class Strings
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public readonly LocalizedString VariablePrint = @"{00} {01} = {02}";
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public readonly LocalizedString SkillCount = @" - {00} Skills.";
     }
 
     public sealed partial class CraftingNamespace : LocaleNamespace
