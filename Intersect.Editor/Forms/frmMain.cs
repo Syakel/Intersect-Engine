@@ -71,6 +71,8 @@ public partial class FrmMain : Form
 
     private FrmTime mTimeEditor;
 
+    private FrmSkill mSkillEditor;
+
     //General Editting Variables
     bool mTMouseDown;
 
@@ -193,6 +195,7 @@ public partial class FrmMain : Form
         spellEditorToolStripMenuItem.Text = Strings.MainForm.spelleditor;
         variableEditorToolStripMenuItem.Text = Strings.MainForm.variableeditor;
         timeEditorToolStripMenuItem.Text = Strings.MainForm.timeeditor;
+        skillEditorToolStripMenuItem.Text = Strings.MainForm.skilleditor;
     }
 
     private void InitLocalizationMenuTools()
@@ -1302,6 +1305,11 @@ public partial class FrmMain : Form
         PacketSender.SendOpenEditor(GameObjectType.Time);
     }
 
+    private void skillEditorToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        PacketSender.SendOpenEditor(GameObjectType.Skill);
+    }
+
     private void layersToolStripMenuItem_DropDownOpened(object sender, EventArgs e)
     {
         foreach (var itm in ((ToolStripMenuItem)sender).DropDownItems)
@@ -1726,6 +1734,15 @@ public partial class FrmMain : Form
                         mTimeEditor = new FrmTime();
                         mTimeEditor.InitEditor(DaylightCycleDescriptor.Instance);
                         mTimeEditor.Show();
+                    }
+
+                    break;
+                case GameObjectType.Skill:
+                    if (mSkillEditor == null || mSkillEditor.Visible == false)
+                    {
+                        mSkillEditor = new FrmSkill();
+                        mSkillEditor.InitEditor();
+                        mSkillEditor.Show();
                     }
 
                     break;

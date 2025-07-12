@@ -4170,6 +4170,8 @@ Tick timer saved in server config.json.";
 
         public static LocalizedString npceditor = @"Npc Editor";
 
+        public static LocalizedString skilleditor = @"Skill Editor";
+
         public static LocalizedString options = @"Options";
 
         public static LocalizedString overlay = @"Overlay";
