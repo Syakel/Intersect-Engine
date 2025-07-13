@@ -316,5 +316,87 @@ public partial class FrmSkill : EditorForm
         }
     }
 
+    private void nudBaseExp_ValueChanged(object sender, EventArgs e)
+    {
+        if (mEditorItem != null)
+        {
+            mEditorItem.BaseExp = (long)nudBaseExp.Value;
+        }
+    }
+
+    private void nudExpIncrease_ValueChanged(object sender, EventArgs e)
+    {
+        if (mEditorItem != null)
+        {
+            mEditorItem.ExpIncrease = (long)nudExpIncrease.Value;
+        }
+    }
+
+    private void btnExpGrid_Click(object sender, EventArgs e)
+    {
+        
+    }
+
+    private void UpdateExpGridValues(int start, int end = -1)
+    {
+        if (end == -1)
+        {
+            end = Options.Instance.Player.MaxLevel;
+        }
+
+        if (start > end)
+        {
+            return;
+        }
+
+        if (start < 1)
+        {
+            start = 1;
+        }
+
+        for (var i = start; i <= end; i++)
+        {
+            if (i < Options.Instance.Player.MaxLevel)
+            {
+                if (mEditorItem.ExperienceOverrides.ContainsKey(i))
+                {
+                    expGrid.Rows[i - 1].Cells[1].Value = Convert.ChangeType(
+                        mEditorItem.ExperienceOverrides[i], expGrid.Rows[i - 1].Cells[1].ValueType
+                    );
+
+                    var style = expGrid.Rows[i - 1].Cells[1].InheritedStyle;
+                    style.Font = new Font(style.Font, FontStyle.Bold);
+                    expGrid.Rows[i - 1].Cells[1].Style.ApplyStyle(style);
+                }
+                else
+                {
+                    expGrid.Rows[i - 1].Cells[1].Value = Convert.ChangeType(
+                        mEditorItem.ExperienceCurve.Calculate(i), expGrid.Rows[i - 1].Cells[1].ValueType
+                    );
+
+                    expGrid.Rows[i - 1].Cells[1].Style.ApplyStyle(expGrid.Rows[i - 1].Cells[0].InheritedStyle);
+                }
+            }
+            else
+            {
+                expGrid.Rows[i - 1].Cells[1].Value = Convert.ChangeType(0, expGrid.Rows[i - 1].Cells[1].ValueType);
+                expGrid.Rows[i - 1].Cells[1].ReadOnly = true;
+            }
+
+            if (i == 1)
+            {
+                expGrid.Rows[i - 1].Cells[2].Value = Convert.ChangeType(0, expGrid.Rows[i - 1].Cells[1].ValueType);
+            }
+            else
+            {
+                expGrid.Rows[i - 1].Cells[2].Value = Convert.ChangeType(
+                    long.Parse(expGrid.Rows[i - 2].Cells[2].Value.ToString()) +
+                    long.Parse(expGrid.Rows[i - 2].Cells[1].Value.ToString()),
+                    expGrid.Rows[i - 1].Cells[2].ValueType
+                );
+            }
+        }
+    }
+
     #endregion
 }

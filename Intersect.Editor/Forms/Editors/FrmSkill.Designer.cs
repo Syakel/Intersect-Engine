@@ -45,6 +45,7 @@ namespace Intersect.Editor.Forms.Editors
             toolStripItemPaste = new ToolStripButton();
             toolStripSeparator3 = new ToolStripSeparator();
             toolStripItemUndo = new ToolStripButton();
+            grpLeveling = new DarkGroupBox();
             grpSkills.SuspendLayout();
             pnlContainer.SuspendLayout();
             grpGeneral.SuspendLayout();
@@ -57,7 +58,7 @@ namespace Intersect.Editor.Forms.Editors
             btnCancel.Location = new System.Drawing.Point(358, 540);
             btnCancel.Margin = new Padding(4, 3, 4, 3);
             btnCancel.Name = "btnCancel";
-            btnCancel.Padding = new Padding(6, 6, 6, 6);
+            btnCancel.Padding = new Padding(6);
             btnCancel.Size = new Size(201, 31);
             btnCancel.TabIndex = 24;
             btnCancel.Text = "Cancel";
@@ -68,7 +69,7 @@ namespace Intersect.Editor.Forms.Editors
             btnSave.Location = new System.Drawing.Point(154, 540);
             btnSave.Margin = new Padding(4, 3, 4, 3);
             btnSave.Name = "btnSave";
-            btnSave.Padding = new Padding(6, 6, 6, 6);
+            btnSave.Padding = new Padding(6);
             btnSave.Size = new Size(197, 31);
             btnSave.TabIndex = 23;
             btnSave.Text = "Save";
@@ -96,7 +97,7 @@ namespace Intersect.Editor.Forms.Editors
             btnClearSearch.Location = new System.Drawing.Point(209, 18);
             btnClearSearch.Margin = new Padding(4, 3, 4, 3);
             btnClearSearch.Name = "btnClearSearch";
-            btnClearSearch.Padding = new Padding(6, 6, 6, 6);
+            btnClearSearch.Padding = new Padding(6);
             btnClearSearch.Size = new Size(21, 23);
             btnClearSearch.TabIndex = 25;
             btnClearSearch.Text = "X";
@@ -137,6 +138,7 @@ namespace Intersect.Editor.Forms.Editors
             // pnlContainer
             // 
             pnlContainer.Controls.Add(grpGeneral);
+            pnlContainer.Controls.Add(grpLeveling);
             pnlContainer.Location = new System.Drawing.Point(258, 42);
             pnlContainer.Margin = new Padding(4, 3, 4, 3);
             pnlContainer.Name = "pnlContainer";
@@ -168,7 +170,7 @@ namespace Intersect.Editor.Forms.Editors
             btnAddFolder.Location = new System.Drawing.Point(264, 51);
             btnAddFolder.Margin = new Padding(4, 3, 4, 3);
             btnAddFolder.Name = "btnAddFolder";
-            btnAddFolder.Padding = new Padding(6, 6, 6, 6);
+            btnAddFolder.Padding = new Padding(6);
             btnAddFolder.Size = new Size(21, 24);
             btnAddFolder.TabIndex = 23;
             btnAddFolder.Text = "+";
@@ -339,6 +341,69 @@ namespace Intersect.Editor.Forms.Editors
             toolStripItemUndo.Text = "Undo";
             toolStripItemUndo.Click += toolStripItemUndo_Click;
             // 
+            // grpLeveling
+            // 
+            grpLeveling.BackColor = System.Drawing.Color.FromArgb(45, 45, 48);
+            grpLeveling.BorderColor = System.Drawing.Color.FromArgb(90, 90, 90);
+            grpLeveling.ForeColor = System.Drawing.Color.Gainsboro;
+            grpLeveling.Location = new System.Drawing.Point(8, 97);
+            grpLeveling.Name = "grpLeveling";
+            grpLeveling.Size = new Size(292, 124);
+            grpLeveling.TabIndex = 29;
+            grpLeveling.TabStop = false;
+            grpLeveling.Text = "Experience Scaling";
+            //   
+            // nudBaseExp  
+            //   
+            this.nudBaseExp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
+            this.nudBaseExp.ForeColor = System.Drawing.Color.Gainsboro;
+            this.nudBaseExp.Location = new System.Drawing.Point(7, 31);
+            this.nudBaseExp.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            this.nudBaseExp.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            this.nudBaseExp.Name = "nudBaseExp";
+            this.nudBaseExp.Size = new System.Drawing.Size(99, 20);
+            this.nudBaseExp.TabIndex = 36;
+            this.nudBaseExp.Value = new decimal(new int[] { 100, 0, 0, 0 });
+            this.nudBaseExp.ValueChanged += new System.EventHandler(this.nudBaseExp_ValueChanged);
+            //   
+            // nudExpIncrease  
+            //   
+            this.nudExpIncrease.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
+            this.nudExpIncrease.ForeColor = System.Drawing.Color.Gainsboro;
+            this.nudExpIncrease.Location = new System.Drawing.Point(115, 31);
+            this.nudExpIncrease.Name = "nudExpIncrease";
+            this.nudExpIncrease.Size = new System.Drawing.Size(122, 20);
+            this.nudExpIncrease.TabIndex = 31;
+            this.nudExpIncrease.Value = new decimal(new int[] { 50, 0, 0, 0 });
+            this.nudExpIncrease.ValueChanged += new System.EventHandler(this.nudExpIncrease_ValueChanged);
+            //   
+            // lblBaseExp  
+            //   
+            this.lblBaseExp.AutoSize = true;
+            this.lblBaseExp.Location = new System.Drawing.Point(6, 16);
+            this.lblBaseExp.Name = "lblBaseExp";
+            this.lblBaseExp.Size = new System.Drawing.Size(100, 13);
+            this.lblBaseExp.TabIndex = 19;
+            this.lblBaseExp.Text = "Base Exp To Level:";
+            //   
+            // lblExpIncrease  
+            //   
+            this.lblExpIncrease.AutoSize = true;
+            this.lblExpIncrease.Location = new System.Drawing.Point(112, 15);
+            this.lblExpIncrease.Name = "lblExpIncrease";
+            this.lblExpIncrease.Size = new System.Drawing.Size(125, 13);
+            this.lblExpIncrease.TabIndex = 21;
+            this.lblExpIncrease.Text = "Exp Increase (Per Lvl %):";
+            //   
+            // btnExpGrid  
+            //   
+            this.btnExpGrid.Location = new System.Drawing.Point(333, 30);
+            this.btnExpGrid.Name = "btnExpGrid";
+            this.btnExpGrid.Size = new System.Drawing.Size(111, 21);
+            this.btnExpGrid.TabIndex = 37;
+            this.btnExpGrid.Text = "Experience Grid";
+            this.btnExpGrid.Click += new System.EventHandler(this.btnExpGrid_Click);
+            // 
             // FrmSkill
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -399,5 +464,13 @@ namespace Intersect.Editor.Forms.Editors
         private System.Windows.Forms.ToolStripButton btnAlphabetical;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private Controls.GameObjectList lstGameObjects;
+        private DarkGroupBox grpLeveling;
+        private DarkNumericUpDown nudBaseExp;
+        private DarkNumericUpDown nudExpIncrease;
+        private System.Windows.Forms.Label lblBaseExp;
+        private System.Windows.Forms.Label lblExpIncrease;
+        private DarkButton btnExpGrid;
+        private System.Windows.Forms.DataGridView expGrid;
+        private System.Windows.Forms.ContextMenuStrip mnuExpGrid;
     }
 }
