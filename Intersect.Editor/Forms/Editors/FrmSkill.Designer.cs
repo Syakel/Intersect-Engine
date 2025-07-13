@@ -472,5 +472,9 @@ namespace Intersect.Editor.Forms.Editors
         private DarkButton btnExpGrid;
         private System.Windows.Forms.DataGridView expGrid;
         private System.Windows.Forms.ContextMenuStrip mnuExpGrid;
+        private System.Windows.Forms.ToolStripMenuItem btnExpPaste;
+        private DarkGroupBox grpExpGrid;
+        private DarkButton btnResetExpGrid;
+        private DarkButton btnCloseExpGrid;
     }
 }

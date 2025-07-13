@@ -193,8 +193,8 @@ public partial class FrmSkill : EditorForm
 
     private void FrmSkill_Load(object sender, EventArgs e)
     {
-        UpdateEditor();
         InitLocalization();
+        UpdateEditor();
     }
 
     private void InitLocalization()
@@ -215,6 +215,37 @@ public partial class FrmSkill : EditorForm
 
         btnSave.Text = Strings.SkillEditor.save;
         btnCancel.Text = Strings.SkillEditor.cancel;
+
+        grpLeveling.Text = Strings.ClassEditor.leveling;
+        lblBaseExp.Text = Strings.ClassEditor.levelexp;
+        lblExpIncrease.Text = Strings.ClassEditor.levelexpscale;
+
+        //Exp Grid
+        btnExpGrid.Text = Strings.ClassEditor.expgrid;
+        grpExpGrid.Text = Strings.ClassEditor.experiencegrid;
+        btnResetExpGrid.Text = Strings.ClassEditor.gridreset;
+        btnCloseExpGrid.Text = Strings.ClassEditor.gridclose;
+        btnExpPaste.Text = Strings.ClassEditor.gridpaste;
+
+        //Create EXP Grid...
+        var levelCol = new DataGridViewTextBoxColumn();
+        levelCol.HeaderText = Strings.ClassEditor.gridlevel;
+        levelCol.ReadOnly = true;
+        levelCol.SortMode = DataGridViewColumnSortMode.NotSortable;
+
+        var tnlCol = new DataGridViewTextBoxColumn();
+        tnlCol.HeaderText = Strings.ClassEditor.gridtnl;
+        tnlCol.SortMode = DataGridViewColumnSortMode.NotSortable;
+
+        var totalCol = new DataGridViewTextBoxColumn();
+        totalCol.HeaderText = Strings.ClassEditor.gridtotalexp;
+        totalCol.ReadOnly = true;
+        totalCol.SortMode = DataGridViewColumnSortMode.NotSortable;
+
+        expGrid.Columns.Clear();
+        expGrid.Columns.Add(levelCol);
+        expGrid.Columns.Add(tnlCol);
+        expGrid.Columns.Add(totalCol);
     }
 
     #region "Item List - Folders, Searching, Sorting, Etc"
@@ -244,6 +275,187 @@ public partial class FrmSkill : EditorForm
         var items = SkillDescriptor.Lookup.OrderBy(p => p.Value?.Name).Select(pair => new KeyValuePair<Guid, KeyValuePair<string, string>>(pair.Key,
             new KeyValuePair<string, string>(((SkillDescriptor)pair.Value)?.Name ?? Models.DatabaseObject<SkillDescriptor>.Deleted, ((SkillDescriptor)pair.Value)?.Folder ?? ""))).ToArray();
         lstGameObjects.Repopulate(items, mFolders, btnAlphabetical.Checked, CustomSearch(), txtSearch.Text);
+    }
+
+    private void btnCloseExpGrid_Click(object sender, EventArgs e)
+    {
+        grpExpGrid.Hide();
+    }
+
+    private void expGrid_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+    {
+        if (e.Button == MouseButtons.Right &&
+            expGrid.CurrentCell != null &&
+            expGrid.CurrentCell.IsInEditMode == false)
+        {
+            var cell = expGrid.CurrentCell;
+            if (cell != null)
+            {
+                var r = cell.DataGridView.GetCellDisplayRectangle(cell.ColumnIndex, cell.RowIndex, false);
+                var p = new System.Drawing.Point(r.X + r.Width, r.Y + r.Height);
+                mnuExpGrid.Show((DataGridView)sender, p);
+            }
+        }
+    }
+
+    private void expGrid_SelectionChanged(object sender, EventArgs e)
+    {
+        if (expGrid.Rows.Count <= 0)
+        {
+            return;
+        }
+
+        var sel = expGrid.SelectedCells;
+        if (sel.Count == 0)
+        {
+            expGrid.Rows[0].Cells[1].Selected = true;
+        }
+        else
+        {
+            var selection = sel[0];
+            if (selection.ColumnIndex != 1)
+            {
+                expGrid.Rows[selection.RowIndex].Cells[1].Selected = true;
+            }
+        }
+    }
+
+    private void btnPaste_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            var s = Clipboard.GetText();
+            var lines = s.Split('\n');
+            int iFail = 0, iRow = expGrid.CurrentCell.RowIndex;
+            var iCol = expGrid.CurrentCell.ColumnIndex;
+            DataGridViewCell oCell;
+            foreach (var line in lines)
+            {
+                if (iRow < expGrid.RowCount && line.Length > 0)
+                {
+                    var sCells = line.Split('\t');
+                    for (var i = 0; i < 1; ++i)
+                    {
+                        if (iCol + i < this.expGrid.ColumnCount)
+                        {
+                            oCell = expGrid[iCol + i, iRow];
+                            if (!oCell.ReadOnly)
+                            {
+                                if (oCell.Value.ToString() != sCells[i])
+                                {
+                                    var val = 0;
+                                    if (int.TryParse(sCells[i], out val))
+                                    {
+                                        if (val > 0)
+                                        {
+                                            oCell.Value = Convert.ChangeType(val.ToString(), oCell.ValueType);
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    iFail++;
+                                }
+
+                                //only traps a fail if the data has changed
+                                //and you are pasting into a read only cell
+                            }
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
+                    iRow++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+        catch (Exception)
+        {
+            return;
+        }
+    }
+
+    private void expGrid_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+    {
+        e.Control.KeyPress -= new KeyPressEventHandler(expGrid_KeyPress);
+        var tb = e.Control as TextBox;
+        if (tb != null)
+        {
+            tb.KeyPress += new KeyPressEventHandler(expGrid_KeyPress);
+        }
+    }
+
+    private void expGrid_KeyPress(object sender, KeyPressEventArgs e)
+    {
+        if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+        {
+            e.Handled = true;
+        }
+    }
+
+    private void expGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+    {
+        var cell = expGrid.Rows[e.RowIndex].Cells[e.ColumnIndex];
+        long val = 0;
+        if (long.TryParse(cell.Value.ToString(), out val))
+        {
+            if (val == 0 || val == mEditorItem.ExperienceCurve.Calculate(e.RowIndex + 1))
+            {
+                if (mEditorItem.ExperienceOverrides.ContainsKey(e.RowIndex + 1))
+                {
+                    mEditorItem.ExperienceOverrides.Remove(e.RowIndex + 1);
+                }
+            }
+            else
+            {
+                if (!mEditorItem.ExperienceOverrides.ContainsKey(e.RowIndex + 1))
+                {
+                    mEditorItem.ExperienceOverrides.Add(e.RowIndex + 1, val);
+                }
+                else
+                {
+                    mEditorItem.ExperienceOverrides[e.RowIndex + 1] = val;
+                }
+            }
+
+            UpdateExpGridValues(e.RowIndex + 1);
+        }
+        else
+        {
+            UpdateExpGridValues(e.RowIndex + 1, e.RowIndex + 2);
+        }
+    }
+
+    private void btnResetExpGrid_Click(object sender, EventArgs e)
+    {
+        mEditorItem.ExperienceOverrides.Clear();
+        UpdateExpGridValues(1);
+    }
+
+    private void expGrid_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.Delete)
+        {
+            if (expGrid.CurrentCell != null)
+            {
+                if (!expGrid.CurrentCell.IsInEditMode && expGrid.CurrentCell.ReadOnly == false)
+                {
+                    var level = expGrid.CurrentCell.RowIndex + 1;
+                    if (mEditorItem.ExperienceOverrides.ContainsKey(level))
+                    {
+                        mEditorItem.ExperienceOverrides.Remove(level);
+                    }
+
+                    UpdateExpGridValues(level);
+                }
+            }
+        }
     }
 
     private void btnAddFolder_Click(object sender, EventArgs e)
@@ -336,7 +548,7 @@ public partial class FrmSkill : EditorForm
     {
         
     }
-
+   
     private void UpdateExpGridValues(int start, int end = -1)
     {
         if (end == -1)
