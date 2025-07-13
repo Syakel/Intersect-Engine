@@ -193,8 +193,8 @@ public partial class FrmSkill : EditorForm
 
     private void FrmSkill_Load(object sender, EventArgs e)
     {
-        InitLocalization();
         UpdateEditor();
+        InitLocalization();     
     }
 
     private void InitLocalization()
@@ -217,8 +217,6 @@ public partial class FrmSkill : EditorForm
         btnCancel.Text = Strings.SkillEditor.cancel;
 
         grpLeveling.Text = Strings.ClassEditor.leveling;
-        lblBaseExp.Text = Strings.ClassEditor.levelexp;
-        lblExpIncrease.Text = Strings.ClassEditor.levelexpscale;
 
         //Exp Grid
         btnExpGrid.Text = Strings.ClassEditor.expgrid;
@@ -546,14 +544,27 @@ public partial class FrmSkill : EditorForm
 
     private void btnExpGrid_Click(object sender, EventArgs e)
     {
-        
+        grpExpGrid.Show();
+        grpExpGrid.BringToFront();
+
+        expGrid.Rows.Clear();
+
+        for (var i = 1; i <= 150; i++)
+        {
+            var index = expGrid.Rows.Add(i.ToString(), "", "");
+            var row = expGrid.Rows[index];
+            row.Cells[0].Style.SelectionBackColor = row.Cells[0].Style.BackColor;
+            row.Cells[2].Style.SelectionBackColor = row.Cells[2].Style.BackColor;
+        }
+
+        UpdateExpGridValues(1);
     }
    
     private void UpdateExpGridValues(int start, int end = -1)
     {
         if (end == -1)
         {
-            end = Options.Instance.Player.MaxLevel;
+            end = 150;
         }
 
         if (start > end)
@@ -568,7 +579,7 @@ public partial class FrmSkill : EditorForm
 
         for (var i = start; i <= end; i++)
         {
-            if (i < Options.Instance.Player.MaxLevel)
+            if (i < 150)
             {
                 if (mEditorItem.ExperienceOverrides.ContainsKey(i))
                 {
