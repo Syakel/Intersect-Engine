@@ -1,3 +1,4 @@
+using System.Windows.Forms;
 using DarkUI.Controls;
 
 namespace Intersect.Editor.Forms.Editors
@@ -19,6 +20,9 @@ namespace Intersect.Editor.Forms.Editors
 
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSkill));
             btnCancel = new DarkButton();
@@ -36,14 +40,14 @@ namespace Intersect.Editor.Forms.Editors
             txtName = new DarkTextBox();
             grpLeveling = new DarkGroupBox();
             btnExpGrid = new DarkButton();
-            nudBaseExp = new DarkNumericUpDown();
-            nudExpIncrease = new DarkNumericUpDown();
-            lblExpIncrease = new Label();
-            lblBaseExp = new Label();
             grpExpGrid = new DarkGroupBox();
             btnResetExpGrid = new DarkButton();
             btnCloseExpGrid = new DarkButton();
             expGrid = new DataGridView();
+            nudBaseExp = new DarkNumericUpDown();
+            nudExpIncrease = new DarkNumericUpDown();
+            lblExpIncrease = new Label();
+            lblBaseExp = new Label();
             toolStrip = new DarkToolStrip();
             toolStripItemNew = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
@@ -60,10 +64,10 @@ namespace Intersect.Editor.Forms.Editors
             pnlContainer.SuspendLayout();
             grpGeneral.SuspendLayout();
             grpLeveling.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)nudBaseExp).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)nudExpIncrease).BeginInit();
             grpExpGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)expGrid).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudBaseExp).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudExpIncrease).BeginInit();
             toolStrip.SuspendLayout();
             SuspendLayout();
             // 
@@ -153,7 +157,7 @@ namespace Intersect.Editor.Forms.Editors
             // pnlContainer
             // 
             pnlContainer.Controls.Add(grpGeneral);
-            pnlContainer.Controls.Add(grpExpGrid);
+            pnlContainer.Controls.Add(grpLeveling);
             pnlContainer.Location = new System.Drawing.Point(258, 42);
             pnlContainer.Margin = new Padding(4, 3, 4, 3);
             pnlContainer.Name = "pnlContainer";
@@ -250,12 +254,13 @@ namespace Intersect.Editor.Forms.Editors
             grpLeveling.BackColor = System.Drawing.Color.FromArgb(45, 45, 48);
             grpLeveling.BorderColor = System.Drawing.Color.FromArgb(90, 90, 90);
             grpLeveling.Controls.Add(btnExpGrid);
+            grpLeveling.Controls.Add(grpExpGrid);
             grpLeveling.Controls.Add(nudBaseExp);
             grpLeveling.Controls.Add(nudExpIncrease);
             grpLeveling.Controls.Add(lblExpIncrease);
             grpLeveling.Controls.Add(lblBaseExp);
             grpLeveling.ForeColor = System.Drawing.Color.Gainsboro;
-            grpLeveling.Location = new System.Drawing.Point(0, 1);
+            grpLeveling.Location = new System.Drawing.Point(8, 97);
             grpLeveling.Margin = new Padding(4, 3, 4, 3);
             grpLeveling.Name = "grpLeveling";
             grpLeveling.Padding = new Padding(4, 3, 4, 3);
@@ -274,6 +279,76 @@ namespace Intersect.Editor.Forms.Editors
             btnExpGrid.TabIndex = 37;
             btnExpGrid.Text = "Exp Grid";
             btnExpGrid.Click += btnExpGrid_Click;
+            // 
+            // grpExpGrid
+            // 
+            grpExpGrid.BackColor = System.Drawing.Color.FromArgb(45, 45, 48);
+            grpExpGrid.BorderColor = System.Drawing.Color.FromArgb(90, 90, 90);
+            grpExpGrid.Controls.Add(btnResetExpGrid);
+            grpExpGrid.Controls.Add(btnCloseExpGrid);
+            grpExpGrid.Controls.Add(expGrid);
+            grpExpGrid.ForeColor = System.Drawing.Color.Gainsboro;
+            grpExpGrid.Location = new System.Drawing.Point(0, 0);
+            grpExpGrid.Margin = new Padding(2);
+            grpExpGrid.Name = "grpExpGrid";
+            grpExpGrid.Padding = new Padding(2);
+            grpExpGrid.Size = new Size(292, 196);
+            grpExpGrid.TabIndex = 37;
+            grpExpGrid.TabStop = false;
+            grpExpGrid.Text = "Experience Overrides";
+            // 
+            // btnResetExpGrid
+            // 
+            btnResetExpGrid.Location = new System.Drawing.Point(5, 168);
+            btnResetExpGrid.Name = "btnResetExpGrid";
+            btnResetExpGrid.Padding = new Padding(5);
+            btnResetExpGrid.Size = new Size(75, 23);
+            btnResetExpGrid.TabIndex = 0;
+            btnResetExpGrid.Click += btnResetExpGrid_Click;
+            // 
+            // btnCloseExpGrid
+            // 
+            btnCloseExpGrid.Location = new System.Drawing.Point(212, 168);
+            btnCloseExpGrid.Name = "btnCloseExpGrid";
+            btnCloseExpGrid.Padding = new Padding(5);
+            btnCloseExpGrid.Size = new Size(75, 23);
+            btnCloseExpGrid.TabIndex = 1;
+            btnCloseExpGrid.Click += btnCloseExpGrid_Click;
+            // 
+            // expGrid
+            //
+            this.expGrid.AllowUserToAddRows = false;
+            this.expGrid.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(53)))), ((int)(((byte)(55)))));
+            this.expGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.expGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.expGrid.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.expGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.expGrid.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
+            this.expGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Gainsboro;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.expGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.expGrid.ColumnHeadersHeight = 24;
+            this.expGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.expGrid.EnableHeadersVisualStyles = false;
+            expGrid.Location = new System.Drawing.Point(5, 21);
+            expGrid.Name = "expGrid";
+            this.expGrid.RowHeadersVisible = false;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.expGrid.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            expGrid.Size = new Size(279, 141);
+            expGrid.TabIndex = 0;
+            this.expGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.expGrid_CellEndEdit);
+            this.expGrid.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.expGrid_CellMouseDown);
+            this.expGrid.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.expGrid_EditingControlShowing);
+            this.expGrid.SelectionChanged += new System.EventHandler(this.expGrid_SelectionChanged);
+            this.expGrid.KeyDown += new System.Windows.Forms.KeyEventHandler(this.expGrid_KeyDown);
             // 
             // nudBaseExp
             // 
@@ -316,47 +391,6 @@ namespace Intersect.Editor.Forms.Editors
             lblBaseExp.Size = new Size(56, 15);
             lblBaseExp.TabIndex = 19;
             lblBaseExp.Text = "Base Exp:";
-            // 
-            // grpExpGrid
-            // 
-            grpExpGrid.BackColor = System.Drawing.Color.FromArgb(45, 45, 48);
-            grpExpGrid.BorderColor = System.Drawing.Color.FromArgb(90, 90, 90);
-            grpExpGrid.Controls.Add(btnResetExpGrid);
-            grpExpGrid.Controls.Add(btnCloseExpGrid);
-            grpExpGrid.Controls.Add(grpLeveling);
-            grpExpGrid.Controls.Add(expGrid);
-            grpExpGrid.ForeColor = System.Drawing.Color.Gainsboro;
-            grpExpGrid.Location = new System.Drawing.Point(8, 96);
-            grpExpGrid.Margin = new Padding(2);
-            grpExpGrid.Name = "grpExpGrid";
-            grpExpGrid.Padding = new Padding(2);
-            grpExpGrid.Size = new Size(292, 196);
-            grpExpGrid.TabIndex = 37;
-            grpExpGrid.TabStop = false;
-            grpExpGrid.Text = "Experience Overrides";
-            // 
-            // btnResetExpGrid
-            // 
-            btnResetExpGrid.Location = new System.Drawing.Point(5, 168);
-            btnResetExpGrid.Name = "btnResetExpGrid";
-            btnResetExpGrid.Padding = new Padding(5);
-            btnResetExpGrid.Size = new Size(75, 23);
-            btnResetExpGrid.TabIndex = 0;
-            // 
-            // btnCloseExpGrid
-            // 
-            btnCloseExpGrid.Location = new System.Drawing.Point(212, 168);
-            btnCloseExpGrid.Name = "btnCloseExpGrid";
-            btnCloseExpGrid.Padding = new Padding(5);
-            btnCloseExpGrid.Size = new Size(75, 23);
-            btnCloseExpGrid.TabIndex = 1;
-            // 
-            // expGrid
-            // 
-            expGrid.Location = new System.Drawing.Point(5, 21);
-            expGrid.Name = "expGrid";
-            expGrid.Size = new Size(279, 141);
-            expGrid.TabIndex = 2;
             // 
             // toolStrip
             // 
@@ -504,10 +538,10 @@ namespace Intersect.Editor.Forms.Editors
             grpGeneral.PerformLayout();
             grpLeveling.ResumeLayout(false);
             grpLeveling.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)nudBaseExp).EndInit();
-            ((System.ComponentModel.ISupportInitialize)nudExpIncrease).EndInit();
             grpExpGrid.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)expGrid).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudBaseExp).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudExpIncrease).EndInit();
             toolStrip.ResumeLayout(false);
             toolStrip.PerformLayout();
             ResumeLayout(false);

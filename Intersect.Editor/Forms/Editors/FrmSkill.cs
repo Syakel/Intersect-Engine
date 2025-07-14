@@ -60,11 +60,16 @@ public partial class FrmSkill : EditorForm
             txtName.Text = mEditorItem.Name;
             cmbFolder.Text = mEditorItem.Folder;
 
+            //Exp
+            nudBaseExp.Value = mEditorItem.BaseExp;
+            nudExpIncrease.Value = mEditorItem.ExpIncrease;
+
             if (mChanged.IndexOf(mEditorItem) == -1)
             {
                 mChanged.Add(mEditorItem);
                 mEditorItem.MakeBackup();
             }
+            grpExpGrid.Hide();
         }
         else
         {
@@ -194,7 +199,7 @@ public partial class FrmSkill : EditorForm
     private void FrmSkill_Load(object sender, EventArgs e)
     {
         UpdateEditor();
-        InitLocalization();     
+        InitLocalization();
     }
 
     private void InitLocalization()
@@ -559,7 +564,7 @@ public partial class FrmSkill : EditorForm
 
         UpdateExpGridValues(1);
     }
-   
+
     private void UpdateExpGridValues(int start, int end = -1)
     {
         if (end == -1)
@@ -622,4 +627,5 @@ public partial class FrmSkill : EditorForm
     }
 
     #endregion
+
 }
