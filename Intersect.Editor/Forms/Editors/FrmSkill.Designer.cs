@@ -20,9 +20,11 @@ namespace Intersect.Editor.Forms.Editors
 
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            mnuExpGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
             components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSkill));
             btnCancel = new DarkButton();
@@ -69,6 +71,7 @@ namespace Intersect.Editor.Forms.Editors
             ((System.ComponentModel.ISupportInitialize)nudBaseExp).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudExpIncrease).BeginInit();
             toolStrip.SuspendLayout();
+            this.mnuExpGrid.SuspendLayout();
             SuspendLayout();
             // 
             // btnCancel
@@ -319,6 +322,8 @@ namespace Intersect.Editor.Forms.Editors
             //
             this.expGrid.AllowUserToAddRows = false;
             this.expGrid.AllowUserToDeleteRows = false;
+            this.expGrid.AllowUserToResizeColumns = false;
+            this.expGrid.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(53)))), ((int)(((byte)(55)))));
             this.expGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.expGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
@@ -337,6 +342,7 @@ namespace Intersect.Editor.Forms.Editors
             this.expGrid.ColumnHeadersHeight = 24;
             this.expGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.expGrid.EnableHeadersVisualStyles = false;
+            this.expGrid.MultiSelect = false;
             expGrid.Location = new System.Drawing.Point(5, 21);
             expGrid.Name = "expGrid";
             this.expGrid.RowHeadersVisible = false;
@@ -471,6 +477,16 @@ namespace Intersect.Editor.Forms.Editors
             toolStripItemCopy.Size = new Size(23, 26);
             toolStripItemCopy.Text = "Copy";
             toolStripItemCopy.Click += toolStripItemCopy_Click;
+            // 
+            // mnuExpGrid
+            // 
+            this.mnuExpGrid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.mnuExpGrid.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.mnuExpGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnExpPaste});
+            this.mnuExpGrid.Name = "commandMenu";
+            this.mnuExpGrid.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.mnuExpGrid.Size = new System.Drawing.Size(103, 26);
             // 
             // toolStripItemPaste
             // 
