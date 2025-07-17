@@ -508,11 +508,6 @@ namespace Intersect.Server.Migrations.MySql.Player
                     b.Property<int>("SkillLevel")
                         .HasColumnType("int");
 
-                    b.Property<string>("SkillName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
                     b.Property<long>("SkillXp")
                         .HasColumnType("bigint");
 

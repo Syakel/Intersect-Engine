@@ -12,7 +12,7 @@ namespace Intersect.Server.Database.PlayerData.Services
 {
     public class SkillSynchronizationService
     {
-        public static void SyncNewSkillToAllUsers(Guid skillId, string skillName)
+        public static void SyncNewSkillToAllUsers(Guid skillId)//, string skillName)
         {
             using var context = DbInterface.CreatePlayerContext(readOnly: false);
 
@@ -22,7 +22,7 @@ namespace Intersect.Server.Database.PlayerData.Services
             {
                 UserId = userId,
                 SkillId = skillId,
-                SkillName = skillName,
+                //SkillName = skillName,
                 SkillLevel = 1,
                 SkillXp = 0
             }).ToList();

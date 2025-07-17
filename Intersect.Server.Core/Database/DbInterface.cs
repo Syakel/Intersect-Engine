@@ -1329,7 +1329,7 @@ public static partial class DbInterface
                         SkillDescriptor.Lookup.Set(dbObj.Id, dbObj);
 
                         // After saving, sync to all users  
-                        SkillSynchronizationService.SyncNewSkillToAllUsers(dbObj.Id, dbObj.Name);
+                        SkillSynchronizationService.SyncNewSkillToAllUsers(dbObj.Id);//, dbObj.Name);
                         break;
 
                     default:

@@ -14,10 +14,6 @@ namespace Intersect.Server.Database.PlayerData.Players
         [Required]
         public Guid SkillId { get; set; }
 
-        [Required]
-        [MaxLength(255)]
-        public string SkillName { get; set; }
-
         [Range(1, 150)]
         public int SkillLevel { get; set; } = 1;
 
