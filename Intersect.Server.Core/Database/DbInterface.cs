@@ -31,6 +31,7 @@ using Intersect.Server.Database.Logging;
 using Intersect.Server.Database.PlayerData;
 using Intersect.Server.Database.PlayerData.Players;
 using Intersect.Server.Database.PlayerData.Security;
+using Intersect.Server.Database.PlayerData.Services;
 using Intersect.Server.Entities;
 using Intersect.Server.General;
 using Intersect.Server.Localization;
@@ -1327,6 +1328,8 @@ public static partial class DbInterface
                         context.Skills.Add((SkillDescriptor)dbObj);
                         SkillDescriptor.Lookup.Set(dbObj.Id, dbObj);
 
+                        // After saving, sync to all users  
+                        SkillSynchronizationService.SyncNewSkillToAllUsers(dbObj.Id, dbObj.Name);
                         break;
 
                     default:

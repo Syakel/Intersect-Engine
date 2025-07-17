@@ -49,6 +49,8 @@ public abstract partial class PlayerContext : IntersectDbContext<PlayerContext>,
 
     public DbSet<UserVariable> User_Variables { get; set; }
 
+    public DbSet<UserSkill> User_Skills { get; set; }
+
     internal async ValueTask Commit(
         bool commit = false,
         CancellationToken cancellationToken = default(CancellationToken)

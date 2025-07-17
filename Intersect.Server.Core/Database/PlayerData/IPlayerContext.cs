@@ -1,4 +1,4 @@
-﻿using Intersect.Server.Database.PlayerData.Api;
+using Intersect.Server.Database.PlayerData.Api;
 using Intersect.Server.Database.PlayerData.Players;
 using Intersect.Server.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -38,4 +38,6 @@ public interface IPlayerContext : IDbContext
     DbSet<Guild> Guilds { get; set; }
 
     DbSet<GuildBankSlot> Guild_Bank { get; set; }
+
+    DbSet<UserSkill> User_Skills { get; set; }
 }
