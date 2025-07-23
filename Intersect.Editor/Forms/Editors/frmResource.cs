@@ -10,6 +10,7 @@ using Intersect.Enums;
 using Intersect.Framework.Core.GameObjects.Animations;
 using Intersect.Framework.Core.GameObjects.Items;
 using Intersect.Framework.Core.GameObjects.Resources;
+using Intersect.Framework.Core.GameObjects.Skills;
 using Intersect.Utilities;
 using EventDescriptor = Intersect.Framework.Core.GameObjects.Events.EventDescriptor;
 using Graphics = System.Drawing.Graphics;
@@ -43,6 +44,9 @@ public partial class FrmResource : EditorForm
         cmbEvent.Items.Clear();
         cmbEvent.Items.Add(Strings.General.None);
         cmbEvent.Items.AddRange(EventDescriptor.Names);
+        cmbSkillRequired.Items.Clear();
+        cmbSkillRequired.Items.Add(Strings.General.None);
+        PopulateSkillComboBox();
 
         lstDrops.DataSource = _dropList;
         lstDrops.DisplayMember = nameof(NotifiableDrop.DisplayName);
@@ -328,6 +332,32 @@ public partial class FrmResource : EditorForm
             {
                 _changed.Add(_editorItem.Id, _editorItem);
                 _editorItem.MakeBackup();
+            }
+
+            // Load skill requirements  
+            if (string.IsNullOrEmpty(_editorItem.SkillRequired.ToString()))
+            {
+                cmbSkillRequired.SelectedIndex = 0; // None  
+                nudSkillLevelRequired.Value = 0;
+                nudSkillLevelRequired.Enabled = false;
+            }
+            else
+            {
+                // Find the skill by ID and select it  
+                if (Guid.TryParse(_editorItem.SkillRequired.ToString(), out var skillId))
+                {
+                    var skill = SkillDescriptor.Get(skillId);
+                    if (skill != null)
+                    {
+                        var index = cmbSkillRequired.Items.IndexOf(skill.Name);
+                        if (index > 0)
+                        {
+                            cmbSkillRequired.SelectedIndex = index;
+                            nudSkillLevelRequired.Value = _editorItem.SkillLevelRequired;
+                            nudSkillLevelRequired.Enabled = true;
+                        }
+                    }
+                }
             }
         }
         else
@@ -1089,6 +1119,46 @@ public partial class FrmResource : EditorForm
             var tmpY = Math.Max(0, (int)Math.Floor((double)e.Y / Options.Instance.Map.TileHeight));
             currentState.Width = tmpX - currentState.X;
             currentState.Height = tmpY - currentState.Y;
+        }
+    }
+
+    private void PopulateSkillComboBox()
+    {
+        // Get skills from the Skills lookup  
+        var skills = SkillDescriptor.Lookup.OrderBy(kvp => kvp.Value.Name).ToList();
+        foreach (var skill in skills)
+        {
+            cmbSkillRequired.Items.Add(skill.Value.Name);
+        }
+    }
+
+    private void cmbSkillRequired_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (_editorItem == null) return;
+
+        if (cmbSkillRequired.SelectedIndex == 0) // "None" selected  
+        {
+            _editorItem.SkillRequired = Guid.Empty;
+            nudSkillLevelRequired.Value = 0;
+            nudSkillLevelRequired.Enabled = false;
+        }
+        else
+        {
+            var selectedSkillName = cmbSkillRequired.SelectedItem.ToString();
+            var skill = SkillDescriptor.Lookup.FirstOrDefault(kvp => kvp.Value.Name == selectedSkillName);
+            if (skill.Value != null)
+            {
+                _editorItem.SkillRequired = skill.Value.Id;
+                nudSkillLevelRequired.Enabled = true;
+            }
+        }
+    }
+
+    private void nudSkillLevelRequired_ValueChanged(object sender, EventArgs e)
+    {
+        if (_editorItem != null)
+        {
+            _editorItem.SkillLevelRequired = (int)nudSkillLevelRequired.Value;
         }
     }
 
