@@ -78,6 +78,10 @@ namespace Intersect.Editor.Forms.Editors
             this.toolStripItemPaste = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripItemUndo = new System.Windows.Forms.ToolStripButton();
+            this.lblSkillRequired = new System.Windows.Forms.Label();
+            this.cmbSkillRequired = new DarkUI.Controls.DarkComboBox();
+            this.lblSkillLevelRequired = new System.Windows.Forms.Label();
+            this.nudSkillLevelRequired = new DarkUI.Controls.DarkNumericUpDown();
             this.grpCrafts.SuspendLayout();
             this.pnlContainer.SuspendLayout();
             this.grpGeneral.SuspendLayout();
@@ -196,6 +200,10 @@ namespace Intersect.Editor.Forms.Editors
             this.grpGeneral.Controls.Add(this.lblName);
             this.grpGeneral.Controls.Add(this.txtName);
             this.grpGeneral.Controls.Add(this.lblSpeed);
+            this.grpGeneral.Controls.Add(this.nudSkillLevelRequired);
+            this.grpGeneral.Controls.Add(this.lblSkillLevelRequired);
+            this.grpGeneral.Controls.Add(this.cmbSkillRequired);
+            this.grpGeneral.Controls.Add(this.lblSkillRequired);
             this.grpGeneral.ForeColor = System.Drawing.Color.Gainsboro;
             this.grpGeneral.Location = new System.Drawing.Point(5, 4);
             this.grpGeneral.Name = "grpGeneral";
@@ -203,6 +211,61 @@ namespace Intersect.Editor.Forms.Editors
             this.grpGeneral.TabIndex = 31;
             this.grpGeneral.TabStop = false;
             this.grpGeneral.Text = "General";
+            //   
+            // lblSkillRequired  
+            //   
+            this.lblSkillRequired.AutoSize = true;
+            this.lblSkillRequired.Location = new System.Drawing.Point(9, 275);
+            this.lblSkillRequired.Name = "lblSkillRequired";
+            this.lblSkillRequired.Size = new Size(85, 13);
+            this.lblSkillRequired.TabIndex = 55;
+            this.lblSkillRequired.Text = "Required Skill:";
+
+            //   
+            // cmbSkillRequired  
+            //   
+            this.cmbSkillRequired.BackColor = System.Drawing.Color.FromArgb(69, 73, 74);
+            this.cmbSkillRequired.BorderColor = System.Drawing.Color.FromArgb(90, 90, 90);
+            this.cmbSkillRequired.BorderStyle = ButtonBorderStyle.Solid;
+            this.cmbSkillRequired.ButtonColor = System.Drawing.Color.FromArgb(43, 43, 43);
+            this.cmbSkillRequired.DrawDropdownHoverOutline = false;
+            this.cmbSkillRequired.DrawFocusRectangle = false;
+            this.cmbSkillRequired.DrawMode = DrawMode.OwnerDrawFixed;
+            this.cmbSkillRequired.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.cmbSkillRequired.FlatStyle = FlatStyle.Flat;
+            this.cmbSkillRequired.ForeColor = System.Drawing.Color.Gainsboro;
+            this.cmbSkillRequired.FormattingEnabled = true;
+            this.cmbSkillRequired.Location = new System.Drawing.Point(9, 291);
+            this.cmbSkillRequired.Name = "cmbSkillRequired";
+            this.cmbSkillRequired.Size = new Size(254, 21);
+            this.cmbSkillRequired.TabIndex = 56;
+            this.cmbSkillRequired.Text = null;
+            this.cmbSkillRequired.TextPadding = new Padding(2);
+            this.cmbSkillRequired.SelectedIndexChanged += new System.EventHandler(this.cmbSkillRequired_SelectedIndexChanged);
+
+            //   
+            // lblSkillLevelRequired  
+            //   
+            this.lblSkillLevelRequired.AutoSize = true;
+            this.lblSkillLevelRequired.Location = new System.Drawing.Point(9, 320);
+            this.lblSkillLevelRequired.Name = "lblSkillLevelRequired";
+            this.lblSkillLevelRequired.Size = new Size(75, 13);
+            this.lblSkillLevelRequired.TabIndex = 57;
+            this.lblSkillLevelRequired.Text = "Level Required:";
+
+            //   
+            // nudSkillLevelRequired  
+            //   
+            this.nudSkillLevelRequired.BackColor = System.Drawing.Color.FromArgb(69, 73, 74);
+            this.nudSkillLevelRequired.ForeColor = System.Drawing.Color.Gainsboro;
+            this.nudSkillLevelRequired.Location = new System.Drawing.Point(9, 336);
+            this.nudSkillLevelRequired.Maximum = new decimal(new int[] { 150, 0, 0, 0 });
+            this.nudSkillLevelRequired.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
+            this.nudSkillLevelRequired.Name = "nudSkillLevelRequired";
+            this.nudSkillLevelRequired.Size = new Size(100, 20);
+            this.nudSkillLevelRequired.TabIndex = 58;
+            this.nudSkillLevelRequired.Value = new decimal(new int[] { 0, 0, 0, 0 });
+            this.nudSkillLevelRequired.ValueChanged += new System.EventHandler(this.nudSkillLevelRequired_ValueChanged);
             // 
             // btnCraftRequirements
             // 
@@ -791,5 +854,9 @@ namespace Intersect.Editor.Forms.Editors
         private DarkNumericUpDown nudFailureChance;
         private System.Windows.Forms.Label lblFailureChance;
         private DarkButton btnCraftRequirements;
+        private DarkComboBox cmbSkillRequired;
+        private DarkNumericUpDown nudSkillLevelRequired;
+        private Label lblSkillRequired;
+        private Label lblSkillLevelRequired;
     }
 }
