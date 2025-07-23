@@ -28,6 +28,7 @@ using Intersect.Server.Database.Logging.Entities;
 using Intersect.Server.Database.PlayerData;
 using Intersect.Server.Database.PlayerData.Players;
 using Intersect.Server.Database.PlayerData.Security;
+using Intersect.Server.Database.PlayerData.Services;
 using Intersect.Server.Entities.Events;
 using Intersect.Server.Framework.Entities;
 using Intersect.Server.Framework.Items;
@@ -37,6 +38,7 @@ using Intersect.Server.Networking;
 using Intersect.Utilities;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using static Intersect.Server.Database.PlayerData.Services.SkillSynchronizationService;
 using Stat = Intersect.Enums.Stat;
 
 namespace Intersect.Server.Entities;
@@ -1454,6 +1456,23 @@ public partial class Player : Entity
         }
 
         AddLevels(levelCount, false); //If zero, still calls PacketSender.SendExperience
+    }
+
+    public async Task GiveSkillExperience(Guid skillId, long expAmount)
+    {
+        if (User?.Id != null)
+        {
+            await SkillSynchronizationService.AddSkillExperience(User.Id, skillId, expAmount);
+        }
+    }
+
+    public async Task<UserSkillProgress> GetSkillProgress(Guid skillId)
+    {
+        if (User?.Id != null)
+        {
+            return await SkillSynchronizationService.GetSkillProgress(User.Id, skillId);
+        }
+        return null;
     }
 
     #endregion

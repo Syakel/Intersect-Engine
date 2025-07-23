@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Intersect.Server.Database.PlayerData.Players
 {
@@ -19,9 +18,6 @@ namespace Intersect.Server.Database.PlayerData.Players
 
         [Range(0, long.MaxValue)]
         public long SkillXp { get; set; } = 0;
-
-        //public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        //public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
         // Navigation property  
         public virtual User User { get; set; }

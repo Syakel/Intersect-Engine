@@ -1,4 +1,5 @@
 using Intersect.Core;
+using Intersect.Framework.Core.GameObjects.Skills;
 using Intersect.Server.Database.PlayerData.Players;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -105,6 +106,102 @@ namespace Intersect.Server.Database.PlayerData.Services
             }
 
             await playerContext.SaveChangesAsync();
+        }
+
+        public static async Task AddSkillExperience(Guid userId, Guid skillId, long expAmount)
+        {
+            using var playerContext = DbInterface.CreatePlayerContext(readOnly: false);
+            using var gameContext = DbInterface.CreateGameContext(readOnly: true);
+
+            var userSkill = await playerContext.User_Skills
+                .FirstOrDefaultAsync(us => us.UserId == userId && us.SkillId == skillId);
+
+            if (userSkill == null) return;
+
+            // Get the skill descriptor for level calculations  
+            var skillDescriptor = await gameContext.Skills.FindAsync(skillId);
+            if (skillDescriptor == null) return;
+
+            userSkill.SkillXp += expAmount;
+
+            // Check for level ups  
+            await CheckSkillLevelUp(userSkill, skillDescriptor, playerContext);
+
+            await playerContext.SaveChangesAsync();
+        }
+
+        private static async Task CheckSkillLevelUp(UserSkill userSkill, SkillDescriptor skillDescriptor, IPlayerContext context)
+        {
+            var levelsGained = 0;
+
+            while (userSkill.SkillLevel < skillDescriptor.MaxLevel)
+            {
+                var expNeeded = skillDescriptor.ExperienceToNextLevel(userSkill.SkillLevel);
+
+                if (userSkill.SkillXp >= expNeeded)
+                {
+                    userSkill.SkillXp -= expNeeded;
+                    userSkill.SkillLevel++;
+                    levelsGained++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+
+            if (levelsGained > 0)
+            {
+                // Log the level up or trigger events  
+                ApplicationContext.Context.Value?.Logger.LogInformation(
+                    "User {UserId} gained {Levels} levels in {SkillName} (now level {NewLevel})",
+                    userSkill.UserId,
+                    levelsGained,
+                    skillDescriptor.Name,
+                    userSkill.SkillLevel
+                );
+            }
+        }
+
+        public static async Task<UserSkillProgress> GetSkillProgress(Guid userId, Guid skillId)
+        {
+            using var playerContext = DbInterface.CreatePlayerContext(readOnly: true);
+            using var gameContext = DbInterface.CreateGameContext(readOnly: true);
+
+            var userSkill = await playerContext.User_Skills
+                .FirstOrDefaultAsync(us => us.UserId == userId && us.SkillId == skillId);
+
+            if (userSkill == null) return null;
+
+            var skillDescriptor = await gameContext.Skills.FindAsync(skillId);
+            if (skillDescriptor == null) return null;
+
+            var expToNext = userSkill.SkillLevel < skillDescriptor.MaxLevel
+                ? skillDescriptor.ExperienceToNextLevel(userSkill.SkillLevel)
+                : 0;
+
+            return new UserSkillProgress
+            {
+                SkillId = skillId,
+                SkillName = skillDescriptor.Name, 
+                CurrentLevel = userSkill.SkillLevel,
+                CurrentXp = userSkill.SkillXp,
+                ExperienceToNextLevel = expToNext,
+                MaxLevel = skillDescriptor.MaxLevel,
+                IsMaxLevel = userSkill.SkillLevel >= skillDescriptor.MaxLevel
+            };
+        }
+
+        public class UserSkillProgress
+        {
+            public Guid SkillId { get; set; }
+            public string SkillName { get; set; }
+            public int CurrentLevel { get; set; }
+            public long CurrentXp { get; set; }
+            public long ExperienceToNextLevel { get; set; }
+            public int MaxLevel { get; set; }
+            public bool IsMaxLevel { get; set; }
         }
     }
 }
