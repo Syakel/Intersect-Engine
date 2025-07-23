@@ -223,14 +223,18 @@ public partial class ItemDescriptor : DatabaseObject<ItemDescriptor>, IFolderabl
     /// <summary>
     /// Defines how high the item can stack in a player's inventory before starting a new stack.
     /// </summary>
-    public int MaxInventoryStack { get; set; } = 1000000;
+    public int MaxInventoryStack { get; set; } = int.MaxValue;
 
     /// <summary>
     /// Defines how high the item can stack in a player/guild's bank before starting a new stack.
     /// </summary>
-    public int MaxBankStack { get; set; } = 1000000;
+    public int MaxBankStack { get; set; } = int.MaxValue;
 
     public int Tool { get; set; } = -1;
+
+    public string SkillRequired { get; set; } = string.Empty;
+
+    public int SkillLevelRequired { get; set; } = 0;
 
     /// <summary>
     /// Defines the player's chance of successfully defending a hit.
