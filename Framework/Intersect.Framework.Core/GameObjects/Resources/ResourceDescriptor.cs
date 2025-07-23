@@ -98,7 +98,7 @@ public partial class ResourceDescriptor : DatabaseObject<ResourceDescriptor>, IF
 
     public bool WalkableBefore { get; set; }
 
-    public string SkillRequired { get; set; } = string.Empty;
+    public Guid SkillRequired { get; set; } = Guid.Empty;
 
     public int SkillLevelRequired { get; set; } = 0;
 
