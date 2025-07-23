@@ -58,7 +58,6 @@ public partial class SkillDescriptor : DatabaseObject<SkillDescriptor>, IFoldera
     }
 
     //Level Up Info
-    public bool IncreasePercentage { get; set; }
 
     [JsonIgnore]
     [NotMapped]
