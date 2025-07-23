@@ -1,11 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Intersect.Core;
-using Intersect.Framework.Core.GameObjects.Skills;
-using Intersect.Server.Database;
-using Intersect.Server.Database.PlayerData;
 using Intersect.Server.Database.PlayerData.Players;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -29,7 +22,7 @@ namespace Intersect.Server.Database.PlayerData.Services
             }).ToList();
 
             context.User_Skills.AddRange(userSkills);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
         public static async Task SyncAllSkillsToUser(Guid userId)
@@ -75,6 +68,42 @@ namespace Intersect.Server.Database.PlayerData.Services
                     skillId
                 );
             }
+        }
+
+        public static async Task ValidateAllUserSkills()
+        {
+            using var gameContext = DbInterface.CreateGameContext(readOnly: true);
+            using var playerContext = DbInterface.CreatePlayerContext(readOnly: false);
+
+            var allSkills = await gameContext.Skills.ToListAsync();
+            var allUsers = await playerContext.Users.ToListAsync();
+
+            foreach (var user in allUsers)
+            {
+                var userSkills = await playerContext.User_Skills
+                    .Where(us => us.UserId == user.Id)
+                    .Select(us => us.SkillId)
+                    .ToListAsync();
+
+                var missingSkills = allSkills
+                    .Where(skill => !userSkills.Contains(skill.Id))
+                    .ToList();
+
+                if (missingSkills.Any())
+                {
+                    var newUserSkills = missingSkills.Select(skill => new UserSkill
+                    {
+                        UserId = user.Id,
+                        SkillId = skill.Id,
+                        SkillLevel = 1,
+                        SkillXp = 0
+                    }).ToList();
+
+                    playerContext.User_Skills.AddRange(newUserSkills);
+                }
+            }
+
+            await playerContext.SaveChangesAsync();
         }
     }
 }

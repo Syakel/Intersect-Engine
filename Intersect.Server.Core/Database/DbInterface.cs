@@ -39,12 +39,12 @@ using Intersect.Server.Maps;
 using Intersect.Server.Networking;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Logging;
 using MySqlConnector;
 using Serilog;
 using Serilog.Events;
 using Serilog.Extensions.Logging;
+
 
 namespace Intersect.Server.Database;
 
@@ -423,6 +423,8 @@ public static partial class DbInterface
 
         ValidateMapEvents();
         ValidateResourceStates();
+
+        _ = Task.Run(async () => await SkillSynchronizationService.ValidateAllUserSkills());
 
         LoadTime();
         OnClassesLoaded();
