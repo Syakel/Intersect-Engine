@@ -661,6 +661,9 @@ public static partial class DbInterface
 
         user.Save(create: true);
 
+        // Add all existing skills to the new user  
+        _ = Task.Run(async () => await SkillSynchronizationService.SyncAllSkillsToUser(user.Id));
+
         client?.SetUser(user);
     }
 
@@ -1329,7 +1332,7 @@ public static partial class DbInterface
                         SkillDescriptor.Lookup.Set(dbObj.Id, dbObj);
 
                         // After saving, sync to all users  
-                        SkillSynchronizationService.SyncNewSkillToAllUsers(dbObj.Id);//, dbObj.Name);
+                        _ = Task.Run(async () => await SkillSynchronizationService.SyncNewSkillToAllUsers(dbObj.Id));
                         break;
 
                     default:
@@ -1473,6 +1476,9 @@ public static partial class DbInterface
                         break;
                     case GameObjectType.Skill:
                         context.Skills.Remove((SkillDescriptor)gameObject);
+
+                        // Clean up user skills when a skill is deleted  
+                        _ = Task.Run(async () => await SkillSynchronizationService.CleanupDeletedSkill(gameObject.Id));
                         break;
                 }
 
