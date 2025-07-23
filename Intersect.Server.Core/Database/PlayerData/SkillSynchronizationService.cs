@@ -47,7 +47,7 @@ namespace Intersect.Server.Database.PlayerData.Services
             await playerContext.SaveChangesAsync();
         }
 
-        public static async Task CleanupDeletedSkill(Guid skillId)
+        public static async Task CleanupDeletedSkill(Guid skillId, string skillName)
         {
             using var playerContext = DbInterface.CreatePlayerContext(readOnly: false);
 
@@ -63,8 +63,9 @@ namespace Intersect.Server.Database.PlayerData.Services
                 await playerContext.SaveChangesAsync();
 
                 ApplicationContext.Context.Value?.Logger.LogInformation(
-                    "Cleaned up {Count} user skill entries for deleted skill {SkillId}",
+                    "Cleaned up {Count} user skill entries for deleted skill '{SkillName}' ({SkillId})",
                     userSkillsToDelete.Count,
+                    skillName,
                     skillId
                 );
             }

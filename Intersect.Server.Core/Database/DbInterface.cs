@@ -1480,7 +1480,7 @@ public static partial class DbInterface
                         context.Skills.Remove((SkillDescriptor)gameObject);
 
                         // Clean up user skills when a skill is deleted  
-                        _ = Task.Run(async () => await SkillSynchronizationService.CleanupDeletedSkill(gameObject.Id));
+                        _ = Task.Run(async () => await SkillSynchronizationService.CleanupDeletedSkill(gameObject.Id, gameObject.Name));
                         break;
                 }
 

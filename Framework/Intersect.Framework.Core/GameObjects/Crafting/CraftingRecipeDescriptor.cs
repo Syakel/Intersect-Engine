@@ -46,6 +46,10 @@ public partial class CraftingRecipeDescriptor : DatabaseObject<CraftingRecipeDes
     [JsonProperty(Order = -2)]
     public int Time { get; set; }
 
+    public string SkillRequired { get; set; } = string.Empty;
+
+    public int SkillLevelRequired { get; set; } = 0;
+
     /// <inheritdoc />
     public string Folder { get; set; } = string.Empty;
 

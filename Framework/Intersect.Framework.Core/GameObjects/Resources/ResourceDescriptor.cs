@@ -98,6 +98,10 @@ public partial class ResourceDescriptor : DatabaseObject<ResourceDescriptor>, IF
 
     public bool WalkableBefore { get; set; }
 
+    public string SkillRequired { get; set; } = string.Empty;
+
+    public int SkillLevelRequired { get; set; } = 0;
+
     /// <inheritdoc />
     public string Folder { get; set; } = string.Empty;
 }
