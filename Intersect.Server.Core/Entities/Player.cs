@@ -4325,6 +4325,13 @@ public partial class Player : Entity
                         CustomColors.Alerts.Success
                     );
 
+                    // Award crafting skill experience here  
+                    if (User?.Id != null && craftDescriptor.SkillRequired != Guid.Empty)
+                    {
+                        int expAmount = craftDescriptor.SkillLevelRequired * craftDescriptor.SkillLevelRequired + craftDescriptor.SkillLevelRequired;
+                        _ = Task.Run(async () => await GiveSkillExperience(craftDescriptor.SkillRequired, expAmount));
+                    }
+
                     if (craftDescriptor.Event != default)
                     {
                         EnqueueStartCommonEvent(craftDescriptor.Event);

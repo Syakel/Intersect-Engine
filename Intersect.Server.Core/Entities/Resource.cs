@@ -182,6 +182,13 @@ public partial class Resource : Entity
                             item.Quantity,
                             killer.Id
                         );
+
+                        if (killer is Player player && player.User?.Id != null)
+                        {
+                            var gatheringSkillId = Descriptor.SkillRequired;
+                            var expAmount = Descriptor.SkillLevelRequired * Descriptor.SkillLevelRequired + Descriptor.SkillLevelRequired;
+                            _ = Task.Run(async () => await player.GiveSkillExperience(gatheringSkillId, expAmount));
+                        }
                     }
                 }
             }
