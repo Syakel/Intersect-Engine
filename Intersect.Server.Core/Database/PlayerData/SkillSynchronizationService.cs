@@ -1,4 +1,5 @@
 using Intersect.Core;
+using Intersect.Framework;
 using Intersect.Framework.Core.GameObjects.Skills;
 using Intersect.Server.Database.PlayerData.Players;
 using Microsoft.EntityFrameworkCore;
@@ -122,15 +123,25 @@ namespace Intersect.Server.Database.PlayerData.Services
             var skillDescriptor = await gameContext.Skills.FindAsync(skillId);
             if (skillDescriptor == null) return;
 
+            ApplicationContext.Context.Value?.Logger.LogInformation(
+                    "Attempting to award {ExpAmount} skill experience to user {UserId} for skill {SkillId}",
+                    expAmount, userId, skillId);
+
             userSkill.SkillXp += expAmount;
 
+            playerContext.Entry(userSkill).State = EntityState.Modified;
+
+            ApplicationContext.Context.Value?.Logger.LogInformation(
+                "New skill experience amount: {SkillXp}",
+                userSkill.SkillXp);
+
             // Check for level ups  
-            await CheckSkillLevelUp(userSkill, skillDescriptor, playerContext);
+            CheckSkillLevelUp(userSkill, skillDescriptor, playerContext);
 
             await playerContext.SaveChangesAsync();
         }
 
-        private static async Task CheckSkillLevelUp(UserSkill userSkill, SkillDescriptor skillDescriptor, IPlayerContext context)
+        private static void CheckSkillLevelUp(UserSkill userSkill, SkillDescriptor skillDescriptor, IPlayerContext context)
         {
             var levelsGained = 0;
 

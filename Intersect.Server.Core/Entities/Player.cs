@@ -1460,10 +1460,7 @@ public partial class Player : Entity
 
     public async Task GiveSkillExperience(Guid skillId, long expAmount)
     {
-        if (User?.Id != null)
-        {
             await SkillSynchronizationService.AddSkillExperience(User.Id, skillId, expAmount);
-        }
     }
 
     public async Task<UserSkillProgress> GetSkillProgress(Guid skillId)
@@ -1533,6 +1530,10 @@ public partial class Player : Entity
                     {
                         EnqueueStartCommonEvent(descriptor.Event);
                     }
+
+                    var gatheringSkillId = descriptor.SkillRequired;
+                    var expAmount = descriptor.SkillLevelRequired * descriptor.SkillLevelRequired + descriptor.SkillLevelRequired;
+                    _ = Task.Run(async () => await GiveSkillExperience(gatheringSkillId, expAmount));
 
                     break;
                 }

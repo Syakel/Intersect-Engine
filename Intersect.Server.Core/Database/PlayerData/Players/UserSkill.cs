@@ -14,10 +14,10 @@ namespace Intersect.Server.Database.PlayerData.Players
         public Guid SkillId { get; set; }
 
         [Range(1, 150)]
-        public int SkillLevel { get; set; } = 1;
+        public int SkillLevel { get; set; }
 
         [Range(0, long.MaxValue)]
-        public long SkillXp { get; set; } = 0;
+        public long SkillXp { get; set; }
 
         // Navigation property  
         public virtual User User { get; set; }
